@@ -1,0 +1,21 @@
+#ajoutvoiture-id,  #ajoutusers-id {
+  width: 10em;
+}
+
+#txtRech {
+    width: 30em;
+}
+
+body {
+    background-color: rgb(255, 255, 255);
+}
+
+.green {
+  background-color: rgb(78, 51, 51);
+}
+
+.footer {
+  background-color: rgb(123, 17, 17);
+  text-align: center;
+}
+

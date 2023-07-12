@@ -1,4 +1,6 @@
 // Fonctions utiles
+import '../node_modules/bootstrap/dist/js/bootstrap.js'
+
 export class loadHTML {
   idZone;
   urlFichier;

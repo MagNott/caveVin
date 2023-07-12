@@ -1,3 +1,5 @@
+import '../node_modules/bootstrap/dist/js/bootstrap.js'
+
 import { loadHTML } from "./ajax_Class_Html.js";
 import { ajaxClassRegion } from "./init.js";
 import { Table } from "./Classe_table_complete.js";
@@ -81,20 +83,23 @@ import { Table } from "./Classe_table_complete.js";
   }
 
   function putRegion(ajaxClass) {
-    let codeModif = document.getElementById("input0");
-    ajaxClass.Cle = codeModif.value;
-    let marqueModif = document.getElementById("input1");
-    let couleurModif = document.getElementById("input2");
-    let cylindreeModif = document.getElementById("input3");
-
-    let car = {
-      marque: marqueModif.value,
-      couleur: couleurModif.value,
-      cylindree: cylindreeModif.value,
-    };
+    let codeRegionModif = document.getElementById("input0");
+    ajaxClass.Cle = codeRegionModif.value;
+    let codePaysModif = document.getElementById("input1");
+    let nomRegionModif = document.getElementById("input2");
+    
+    if (codePaysModif.value.length == 0) {
+      alert(" La region doit au moins contenir une lettre");
+    } else if (nomRegionModif.value.length == 0) {
+      alert(" La region doit au moins contenir une lettre");
+    } else {
+    let region = {
+      CODEPAYS: codePaysModif.value,
+      NOMREGION: nomRegionModif.value,
+      };
 
     ajaxClass.put(
-      JSON.stringify(car),
+      JSON.stringify(region),
       () => {
         ajaxClass.Cle = "";
         document.getElementById("bandeaumodif-id").classList.remove("d-none");
@@ -108,28 +113,26 @@ import { Table } from "./Classe_table_complete.js";
         alert("Erreur");
       }
     );
+    }
   }
 
   function postRegion(ajaxClass) {
-    let marqueAjout = document.getElementById("marque");
-    let couleurAjout = document.getElementById("couleur");
-    let cylindreeAjout = document.getElementById("cylindree");
+    let codePaysAjout = document.getElementById("codePays");
+    let nomRegionAjout = document.getElementById("nomRegion");
 
-    if (marqueAjout.value.length == 0) {
-      alert(" La marque doit au moins contenir une lettre");
-      event.preventDefault();
-    } else if (couleurAjout.value.length == 0) {
-      alert(" La couleur doit au moins contenir une lettre");
-      event.preventDefault();
+    if (codePaysAjout.value.length == 0) {
+      alert(" Le pays doit au moins contenir une lettre");
+    } else if (nomRegionAjout.value.length == 0) {
+      alert(" La région doit au moins contenir une lettre");
     } else {
-      let car = {
-        marque: marqueAjout.value,
-        couleur: couleurAjout.value,
-        cylindree: cylindreeAjout.value,
+      let region = {
+        CODEPAYS: codePaysAjout.value,
+        NOMREGION: nomRegionAjout.value,
+        
       };
 
       ajaxClass.post(
-        JSON.stringify(car),
+        JSON.stringify(region),
         () => {
           ajaxClass.Cle = "";
           document.getElementById("bandeauajout-id").classList.remove("d-none");
@@ -138,9 +141,8 @@ import { Table } from "./Classe_table_complete.js";
           });
 
           generationTableau(ajaxClass);
-          marqueAjout.value = "";
-          couleurAjout.value = "";
-          cylindree.value = "";
+          codePaysAjout.value = "";
+          nomRegionAjout.value = "";
         },
         () => {
           alert("Erreur");

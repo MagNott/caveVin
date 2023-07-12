@@ -1,4 +1,5 @@
 "use strict";
+import '../node_modules/bootstrap/dist/js/bootstrap.js'
 
 export class Table {
   id_zone = "";

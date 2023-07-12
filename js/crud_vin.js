@@ -1,3 +1,5 @@
+import '../node_modules/bootstrap/dist/js/bootstrap.js'
+
 import { loadHTML } from "./ajax_Class_Html.js";
 import { ajaxClassVin } from "./init.js";
 import { Table } from "./Classe_table_complete.js";
@@ -83,53 +85,88 @@ import { Table } from "./Classe_table_complete.js";
   function putVin(ajaxClass) {
     let codeModif = document.getElementById("input0");
     ajaxClass.Cle = codeModif.value;
-    let marqueModif = document.getElementById("input1");
-    let couleurModif = document.getElementById("input2");
-    let cylindreeModif = document.getElementById("input3");
+    let nomCuveeModif = document.getElementById("input1");
+    let codeAppellationModif = document.getElementById("input2");
+    let codeRegionModif = document.getElementById("input3");
+    let codeCouleurModif = document.getElementById("input4");
+    let typeCultureMofif = document.getElementById("input5");
+    let commentairesModif = document.getElementById("input6");
+    let majuscules = /^[A-Z]+$/;
 
-    let car = {
-      marque: marqueModif.value,
-      couleur: couleurModif.value,
-      cylindree: cylindreeModif.value,
-    };
+    if (nomCuveeModif.value.length == 0 || !majuscules.test(nomCuveeModif.value) ) {
+      alert(" Le nom de cuvée doit au moins contenir une lettre et être en majuscule");
+    } else if (codeAppellationModif.value.length == 0) {
+      alert(" L'appellation doit au moins contenir une lettre");
+    } else if (codeRegionModif.value.length == 0) {
+      alert(" La région doit au moins contenir une lettre");
+    } else if (codeCouleurModif.value.length == 0) {
+      alert(" La couleur doit au moins contenir une lettre");
+    } else if (typeCultureMofif.value.length == 0){
+      alert(" Le type de culture doit au moins contenir une lettre");
+    } else if (commentairesModif.value.length == 0){
+      alert(" Le commentaire doit au moins contenir une lettre");
+    } else {
+      let vin = {
+        NOM_CUVEE: nomCuveeModif.value,
+        CODEAPPELLATION: codeAppellationModif.value,
+        CODEREGION: codeRegionModif.value,
+        CODECOULEUR:codeCouleurModif.value,
+        TYPE_DE_CULTURE: typeCultureMofif.value,
+        COMMENTAIRES: commentairesModif.value,
+      };
 
-    ajaxClass.put(
-      JSON.stringify(car),
-      () => {
-        ajaxClass.Cle = "";
-        document.getElementById("bandeaumodif-id").classList.remove("d-none");
-        generationTableau(ajaxClass);
-        document.getElementById("btnModifDismiss").addEventListener("click", () => {
-          document.getElementById("bandeaumodif-id").classList.add("d-none");
-        });
-        generationTableau(ajaxClass);
-      },
-      () => {
-        alert("Erreur");
-      }
+      ajaxClass.put(
+        JSON.stringify(vin),
+        () => {
+          ajaxClass.Cle = "";
+          document.getElementById("bandeaumodif-id").classList.remove("d-none");
+          generationTableau(ajaxClass);
+          document.getElementById("btnModifDismiss").addEventListener("click", () => {
+            document.getElementById("bandeaumodif-id").classList.add("d-none");
+          });
+          
+          
+          generationTableau(ajaxClass);
+        },
+        () => {
+          alert("Erreur");
+        }
     );
+    }
   }
 
   function postVin(ajaxClass) {
-    let marqueAjout = document.getElementById("marque");
+    let cuveeAjout = document.getElementById("cuvee");
+    let codeAppellationAjout = document.getElementById("appellation");
+    let regionAjout = document.getElementById("region");
     let couleurAjout = document.getElementById("couleur");
-    let cylindreeAjout = document.getElementById("cylindree");
+    let cultureAjout = document.getElementById("culture");
+    let commentairesAjout = document.getElementById("commentaires");
 
-    if (marqueAjout.value.length == 0) {
-      alert(" La marque doit au moins contenir une lettre");
-      event.preventDefault();
+    if (cuveeAjout.value.length == 0) {
+      alert(" Le vin doit au moins contenir une lettre");
+    } else if (codeAppellationAjout.value.length == 0) {
+      alert(" La couleur doit au moins contenir une lettre");
+    } else if (regionAjout.value.length == 0) {
+      alert(" La couleur doit au moins contenir une lettre");
     } else if (couleurAjout.value.length == 0) {
       alert(" La couleur doit au moins contenir une lettre");
-      event.preventDefault();
-    } else {
-      let car = {
-        marque: marqueAjout.value,
-        couleur: couleurAjout.value,
-        cylindree: cylindreeAjout.value,
+    } else if (cultureAjout.value.length == 0) {
+      alert(" La couleur doit au moins contenir une lettre");
+    } else if (commentairesAjout.value.length == 0) {
+      alert(" La couleur doit au moins contenir une lettre");
+    }else {      
+      let vin = {
+        NOM_CUVEE: cuveeAjout.value,
+        CODEAPPELLATION: codeAppellationAjout.value,
+        CODEREGION: regionAjout.value,
+        CODECOULEUR: couleurAjout.value,
+        TYPE_DE_CULTURE: cultureAjout.value,
+        COMMENTAIRES: commentairesAjout.value,
       };
 
       ajaxClass.post(
-        JSON.stringify(car),
+        JSON.stringify(vin),
         () => {
           ajaxClass.Cle = "";
           document.getElementById("bandeauajout-id").classList.remove("d-none");
@@ -138,9 +175,12 @@ import { Table } from "./Classe_table_complete.js";
           });
 
           generationTableau(ajaxClass);
-          marqueAjout.value = "";
+          cuveeAjout.value = "";
+          codeAppellationAjout.value = "";
+          regionAjout.value = "";
           couleurAjout.value = "";
-          cylindree.value = "";
+          cultureAjout.value = "";
+          commentairesAjout.value = "";
         },
         () => {
           alert("Erreur");

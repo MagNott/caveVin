@@ -1,4 +1,5 @@
 import { loadHTML }  from "./ajax_Class_Html.js"
+import '../node_modules/bootstrap/dist/js/bootstrap.js'
 
 // Programme PRINCIPAL
 window.addEventListener("load", (event) => {

@@ -1,3 +1,5 @@
+import '../node_modules/bootstrap/dist/js/bootstrap.js'
+
 import { loadHTML } from "./ajax_Class_Html.js";
 import { ajaxClassCouleur } from "./init.js";
 import { Table } from "./Classe_table_complete.js";
@@ -83,9 +85,9 @@ function putCouleur(ajaxClass) {
   let codeModif = document.getElementById("input0");
   ajaxClass.Cle = codeModif.value;
   let couleurModif = document.getElementById("input1");
-  if (couleurModif.value.lenght == 0) {
+  if (couleurModif.value.length === 0) {
     alert(" Le pays doit au moins contenir une lettre");
-    event.preventDefault();
+ 
   } else {
     let couleur = {
       NOMCOULEUR: couleurModif.value,
@@ -110,25 +112,16 @@ function putCouleur(ajaxClass) {
 }
 
 function postCouleur(ajaxClass) {
-  let marqueAjout = document.getElementById("marque");
   let couleurAjout = document.getElementById("couleur");
-  let cylindreeAjout = document.getElementById("cylindree");
-
-  if (marqueAjout.value.length == 0) {
-    alert(" La marque doit au moins contenir une lettre");
-    event.preventDefault();
-  } else if (couleurAjout.value.length == 0) {
+  if (couleurAjout.value.length == 0) {
     alert(" La couleur doit au moins contenir une lettre");
-    event.preventDefault();
   } else {
-    let car = {
-      marque: marqueAjout.value,
-      couleur: couleurAjout.value,
-      cylindree: cylindreeAjout.value,
+    let couleur = {
+      NOMCOULEUR: couleurAjout.value,
     };
 
-    ajaxClass.postCouleur(
-      JSON.stringify(car),
+    ajaxClass.post(
+      JSON.stringify(couleur),
       () => {
         ajaxClass.Cle = "";
         document.getElementById("bandeauajout-id").classList.remove("d-none");
@@ -137,9 +130,7 @@ function postCouleur(ajaxClass) {
         });
 
         generationTableau(ajaxClass);
-        marqueAjout.value = "";
         couleurAjout.value = "";
-        cylindree.value = "";
       },
       () => {
         alert("Erreur");

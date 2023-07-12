@@ -1,3 +1,5 @@
+import '../node_modules/bootstrap/dist/js/bootstrap.js'
+
 import { loadHTML } from "./ajax_Class_Html.js";
 import { ajaxClassPays } from "./init.js";
 import { Table } from "./Classe_table_complete.js";

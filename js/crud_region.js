@@ -3,6 +3,8 @@ import '../node_modules/bootstrap/dist/js/bootstrap.js'
 import { loadHTML } from "./ajax_Class_Html.js";
 import { ajaxClassRegion } from "./init.js";
 import { Table } from "./Classe_table_complete.js";
+import { Combo } from "./Class_Combo2.js";
+import { ajaxClassPays } from './init.js';
 
 ("use strict");
 
@@ -31,19 +33,48 @@ import { Table } from "./Classe_table_complete.js";
         tableauRegion.fonction_modif = function (event) {
           let modal = document.getElementById("modifRegionModalBody");
           modal.innerHTML = "";
+          let codePays
           event.target.value.split("*").forEach((valeursSplitee, index) => {
             let input = document.createElement("input");
-            if (index == 0) {
-              input.disabled = true;
-            }
             let label = document.createElement("label");
             label.innerHTML = `${tableauRegion.header[index]} : &nbsp;`;
             input.id = `input${index}`;
             input.value = valeursSplitee;
+            switch (index) {
+              case 0:
+                input.className = "d-none"
+                label.className = "d-none"
+                break;
+              case 1:
+                let span = document.createElement('span')
+                span.id = 'selectPays-id'
+                input = span
+                label.innerText = "PAYS :\u00A0"
+                codePays = valeursSplitee
+                break;
+              case 2:
+                label.innerText = "Nom Région :\u00A0"
+                break;
+            }
             modal.appendChild(label);
             modal.appendChild(input);
             modal.appendChild(document.createElement("br"));
           });
+          
+          
+          ajaxClassPays.get(
+            (reponse) => {
+              let comboRegion = new Combo("selectPays-id", "selectDisplay-id", "comboClass");
+              comboRegion.data = JSON.parse(reponse)["PAYS"]["records"]
+              comboRegion.value_selected = codePays
+              comboRegion.genererCombo();
+              
+            },
+            
+            (error) => {
+              console.log("La requete GET a échoué : ", error);
+            });
+
         };
 
         tableauRegion.fonction_vue = function (event) {
@@ -85,7 +116,7 @@ import { Table } from "./Classe_table_complete.js";
   function putRegion(ajaxClass) {
     let codeRegionModif = document.getElementById("input0");
     ajaxClass.Cle = codeRegionModif.value;
-    let codePaysModif = document.getElementById("input1");
+    let codePaysModif = document.getElementById("selectDisplay-id");
     let nomRegionModif = document.getElementById("input2");
     
     if (codePaysModif.value.length == 0) {

@@ -68,13 +68,11 @@ import { ajaxClassPays } from './init.js';
               comboRegion.data = JSON.parse(reponse)["PAYS"]["records"]
               comboRegion.value_selected = codePays
               comboRegion.genererCombo();
-              
             },
             
             (error) => {
               console.log("La requete GET a échoué : ", error);
-            });
-
+            })
         };
 
         tableauRegion.fonction_vue = function (event) {
@@ -148,7 +146,7 @@ import { ajaxClassPays } from './init.js';
   }
 
   function postRegion(ajaxClass) {
-    let codePaysAjout = document.getElementById("codePays");
+    let codePaysAjout = document.getElementById("selectPaysDisplay-id");
     let nomRegionAjout = document.getElementById("nomRegion");
 
     if (codePaysAjout.value.length == 0) {
@@ -236,6 +234,21 @@ import { ajaxClassPays } from './init.js';
     document.getElementById("modifRegion-id").addEventListener("click", () => {
       putRegion(ajaxClassRegion);
     });
+
+    document.getElementById("ajoutregion-id").addEventListener("click", () => {
+      ajaxClassPays.get(
+        (reponse) => {
+          let comboRegionAjout = new Combo("selectPays-id", "selectPaysDisplay-id", "comboClass");
+          comboRegionAjout.data = JSON.parse(reponse)["PAYS"]["records"]
+         document.getElementById("selectPays-id").innerHTML=""
+          comboRegionAjout.genererCombo();
+        },
+        
+        (error) => {
+          console.log("La requete GET a échoué : ", error);
+        })
+    });
+
 
     document.getElementById("ajoutRegion-id").addEventListener("click", () => {
       postRegion(ajaxClassRegion);

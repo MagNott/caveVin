@@ -16,7 +16,7 @@ function generationTableau(ajaxClass) {
       tableauDisplay.innerHTML = "";
 
       tableauPays.data = JSON.parse(reponse)["PAYS"]["records"];
-      tableauPays.header = JSON.parse(reponse)["PAYS"]["columns"];
+      tableauPays.header = ['Code pays', 'Pays'];
       tableauPays.BS_toggle_modal = "modal";
       tableauPays.BS_target_vue = "#vuePaysModal";
       tableauPays.BS_target_modif = "#modifPaysModal";

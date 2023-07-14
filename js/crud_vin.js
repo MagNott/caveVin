@@ -1,13 +1,22 @@
 import '../node_modules/bootstrap/dist/js/bootstrap.js'
-
 import { loadHTML } from "./ajax_Class_Html.js";
 import { ajaxClassVin } from "./init.js";
 import { Table } from "./Classe_table_complete.js";
+import { Combo } from "./Class_Combo2.js";
+import { ajaxClassCouleur } from './init.js';
+import { ajaxClassAppellation } from './init.js';
+import { ajaxClassRegion } from './init.js';
+import { urlAppellationOrder } from './init.js';
+import { urlRegionOrder } from './init.js';
+import { urlCouleurOrder } from './init.js';
+import { urlVinAppellationRegionCouleur } from './init.js';
+import { urlVin } from './init.js';
 
 ("use strict");
 
 
   function generationTableau(ajaxClass) {
+    ajaxClass.Url = urlVinAppellationRegionCouleur
     ajaxClass.get(
       (reponse) => {
         let tableauVin = new Table();
@@ -16,8 +25,20 @@ import { Table } from "./Classe_table_complete.js";
         let tableauDisplay = document.getElementById("zone-table-id");
         tableauDisplay.innerHTML = "";
 
-        tableauVin.data = JSON.parse(reponse)["VIN"]["records"];
-        tableauVin.header = JSON.parse(reponse)["VIN"]["columns"];
+
+        const arrayXdimensions = JSON.parse(reponse)["VIN"]
+        const mapFormated = arrayXdimensions.map( (regionArray) => { 
+          return [
+            regionArray.CODEVIN, 
+            regionArray.NOM_CUVEE, 
+            regionArray.APPELLATION[0].NOMAPPELLATION, 
+            regionArray.REGION[0].NOMREGION, 
+            regionArray.COULEUR[0].NOMCOULEUR, 
+            regionArray.TYPE_DE_CULTURE, 
+            regionArray.COMMENTAIRES]
+        });
+        tableauVin.data = mapFormated;
+        tableauVin.header = ['Code Vin', 'Nom cuvée', 'Appellation', 'Nom région', 'Couleur', 'Type de culture', 'Commentaires'];
         tableauVin.BS_toggle_modal = "modal";
         tableauVin.BS_target_vue = "#vueVinModal";
         tableauVin.BS_target_modif = "#modifVinModal";
@@ -31,21 +52,107 @@ import { Table } from "./Classe_table_complete.js";
         tableauVin.fonction_modif = function (event) {
           let modal = document.getElementById("modifVinModalBody");
           modal.innerHTML = "";
+          
+          let codeAppellation;
+          let codeCouleur;
+          let codeRegion;
+
           event.target.value.split("*").forEach((valeursSplitee, index) => {
             let input = document.createElement("input");
-            if (index == 0) {
-              input.disabled = true;
-            }
             let label = document.createElement("label");
+            // if (index == 0) {
+            //   input.disabled = true;
+            // }
+            
             label.innerHTML = `${tableauVin.header[index]} : &nbsp;`;
             input.id = `input${index}`;
             input.value = valeursSplitee;
+            switch (index) {
+              case 0:
+                input.className = "d-none"
+                label.className = "d-none"
+                break;
+              case 1:
+                label.innerText = "Nom cuvée :\u00A0"
+                // 
+                break;
+              case 2:
+                let spanAppellation = document.createElement('span')
+                spanAppellation.id = 'selectAppellation-id'
+                input = spanAppellation
+                label.innerText = "Appellation :\u00A0"
+                codeAppellation = valeursSplitee
+                break;
+              case 3:
+                let spanRegion = document.createElement('span')
+                spanRegion.id = 'selectRegion-id'
+                input = spanRegion
+                label.innerText = "Région :\u00A0"
+                codeRegion = valeursSplitee
+                break;
+              case 4:
+                let spanCouleur = document.createElement('span')
+                spanCouleur.id = 'selectCouleur-id'
+                input = spanCouleur
+                label.innerText = "Couleur :\u00A0"
+                codeCouleur = valeursSplitee
+                break;
+              case 5:
+                label.innerText = "Type de culture :\u00A0"
+                break;
+              case 6:
+                label.innerText = "Commentaire :\u00A0"
+                break;
+            }
+
             modal.appendChild(label);
             modal.appendChild(input);
             modal.appendChild(document.createElement("br"));
           });
-        };
 
+
+          ajaxClassAppellation.Url = urlAppellationOrder
+          ajaxClassAppellation.get(
+            (reponse) => {
+              let comboAppellation = new Combo("selectAppellation-id", "selectAppellationDisplay-id", "comboClass");
+              comboAppellation.data = JSON.parse(reponse)["APPELLATION"]["records"]
+              comboAppellation.value_selected = codeAppellation
+              comboAppellation.genererCombo();
+            },
+            
+            (error) => {
+              console.log("La requete GET a échoué : ", error);
+            });
+
+
+            ajaxClassRegion.Url = urlRegionOrder
+            ajaxClassRegion.get(
+              (reponse) => {
+                let comboRegion = new Combo("selectRegion-id", "selectRegionDisplay-id", "comboClass");
+
+                comboRegion.data = JSON.parse(reponse)["REGION"]["records"]
+                comboRegion.value_selected = codeRegion
+                comboRegion.genererCombo();
+              },
+              
+              (error) => {
+                console.log("La requete GET a échoué : ", error);
+              });
+
+            ajaxClassCouleur.Url = urlCouleurOrder
+            ajaxClassCouleur.get(
+            (reponse) => {
+              let comboCouleur = new Combo("selectCouleur-id", "selectCouleurDisplay-id", "comboClass");
+              comboCouleur.data = JSON.parse(reponse)["COULEUR"]["records"]
+              comboCouleur.value_selected = comboCouleur
+              comboCouleur.genererCombo();
+            },
+            
+            (error) => {
+              console.log("La requete GET a échoué : ", error);
+            });
+          };
+     ;
         tableauVin.fonction_vue = function (event) {
           let modal = document.getElementById("vueVinModalBody");
           modal.innerHTML = "";
@@ -74,37 +181,30 @@ import { Table } from "./Classe_table_complete.js";
 
         tableauVin.generer();
         search("txtRech", "vintbody");
-      },
-
-      (error) => {
-        console.log("La requete GET a échoué : ", error);
-      }
-    );
-  }
+    },
+    (error) => {
+      console.log("La requete GET a échoué : ", error);
+    });   
+  };
 
   function putVin(ajaxClass) {
+    ajaxClass.Url = urlVin
     let codeModif = document.getElementById("input0");
     ajaxClass.Cle = codeModif.value;
     let nomCuveeModif = document.getElementById("input1");
-    let codeAppellationModif = document.getElementById("input2");
-    let codeRegionModif = document.getElementById("input3");
-    let codeCouleurModif = document.getElementById("input4");
+    let codeAppellationModif = document.getElementById("selectAppellationDisplay-id");
+    let codeRegionModif = document.getElementById("selectRegionDisplay-id");
+    let codeCouleurModif = document.getElementById("selectCouleurDisplay-id");
     let typeCultureMofif = document.getElementById("input5");
     let commentairesModif = document.getElementById("input6");
     let majuscules = /^[A-Z]+$/;
 
     if (nomCuveeModif.value.length == 0 || !majuscules.test(nomCuveeModif.value) ) {
-      alert(" Le nom de cuvée doit au moins contenir une lettre et être en majuscule");
-    } else if (codeAppellationModif.value.length == 0) {
-      alert(" L'appellation doit au moins contenir une lettre");
-    } else if (codeRegionModif.value.length == 0) {
-      alert(" La région doit au moins contenir une lettre");
-    } else if (codeCouleurModif.value.length == 0) {
-      alert(" La couleur doit au moins contenir une lettre");
-    } else if (typeCultureMofif.value.length == 0){
-      alert(" Le type de culture doit au moins contenir une lettre");
-    } else if (commentairesModif.value.length == 0){
-      alert(" Le commentaire doit au moins contenir une lettre");
+      alert("Le nom de cuvée doit au moins contenir une lettre et être écrit en majuscule");
+    } else if (typeCultureMofif.value.length == 0) {
+      alert("Le type de culture doit au moins contenir une lettre");
+    } else if ( commentairesModif.value.length == 0) {
+      alert("Le commentaire doit au moins contenir une lettre");
     } else {
       let vin = {
         NOM_CUVEE: nomCuveeModif.value,
@@ -137,25 +237,19 @@ import { Table } from "./Classe_table_complete.js";
 
   function postVin(ajaxClass) {
     let cuveeAjout = document.getElementById("cuvee");
-    let codeAppellationAjout = document.getElementById("appellation");
-    let regionAjout = document.getElementById("region");
-    let couleurAjout = document.getElementById("couleur");
+    let codeAppellationAjout = document.getElementById("selectAppellationDisplay-id");
+    let regionAjout = document.getElementById("selectRegionDisplay-id");
+    let couleurAjout = document.getElementById("selectCouleurDisplay-id");
     let cultureAjout = document.getElementById("culture");
     let commentairesAjout = document.getElementById("commentaires");
 
     if (cuveeAjout.value.length == 0) {
       alert(" Le vin doit au moins contenir une lettre");
-    } else if (codeAppellationAjout.value.length == 0) {
-      alert(" La couleur doit au moins contenir une lettre");
-    } else if (regionAjout.value.length == 0) {
-      alert(" La couleur doit au moins contenir une lettre");
-    } else if (couleurAjout.value.length == 0) {
-      alert(" La couleur doit au moins contenir une lettre");
     } else if (cultureAjout.value.length == 0) {
-      alert(" La couleur doit au moins contenir une lettre");
+      alert(" Le type de culture doit au moins contenir une lettre");
     } else if (commentairesAjout.value.length == 0) {
-      alert(" La couleur doit au moins contenir une lettre");
-    }else {      
+      alert(" Le commentaire doit au moins contenir une lettre");
+    } else {      
       let vin = {
         NOM_CUVEE: cuveeAjout.value,
         CODEAPPELLATION: codeAppellationAjout.value,
@@ -190,6 +284,7 @@ import { Table } from "./Classe_table_complete.js";
   }
 
   function delVin(ajaxClass) {
+    ajaxClass.Url = urlVin
     let codeSuppr = document.getElementById("codeSuppr-id").textContent;
     ajaxClass.Cle = codeSuppr;
 
@@ -244,7 +339,54 @@ import { Table } from "./Classe_table_complete.js";
       putVin(ajaxClassVin);
     });
 
-    document.getElementById("ajoutVin-id").addEventListener("click", () => {
+    document.getElementById("ajoutvin-id").addEventListener("click", () => {
+      ajaxClassAppellation.Url = urlAppellationOrder
+      ajaxClassAppellation.get(
+        (reponse) => {
+          let comboAppellationAjout = new Combo("selectAjoutVinAppellation-id", "selectAppellationDisplay-id", "comboClass");
+          comboAppellationAjout.data = JSON.parse(reponse)["APPELLATION"]["records"]
+         document.getElementById("selectAjoutVinAppellation-id").innerHTML=""
+         comboAppellationAjout.genererCombo();
+        },
+        
+        (error) => {
+          console.log("La requete GET a échoué : ", error);
+        })
+    });
+
+    document.getElementById("ajoutvin-id").addEventListener("click", () => {
+      ajaxClassRegion.Url = urlRegionOrder
+      ajaxClassRegion.get(
+        (reponse) => {
+          let comboRegionAjout = new Combo("selectAjoutVinRegion-id", "selectRegionDisplay-id", "comboClass");
+          comboRegionAjout.data = JSON.parse(reponse)["REGION"]["records"]
+         document.getElementById("selectAjoutVinRegion-id").innerHTML=""
+          comboRegionAjout.genererCombo();
+        },
+        
+        (error) => {
+          console.log("La requete GET a échoué : ", error);
+        })
+    });
+
+    document.getElementById("ajoutvin-id").addEventListener("click", () => {
+      ajaxClassCouleur.Url = urlCouleurOrder
+      ajaxClassCouleur.get(
+        (reponse) => {
+          let comboCouleurAjout = new Combo("selectAjoutVinCouleur-id", "selectCouleurDisplay-id", "comboClass");
+          comboCouleurAjout.data = JSON.parse(reponse)["COULEUR"]["records"]
+         document.getElementById("selectAjoutVinCouleur-id").innerHTML=""
+         comboCouleurAjout.genererCombo();
+         
+        },
+        
+        (error) => {
+          console.log("La requete GET a échoué : ", error);
+        })
+    });
+
+
+    document.getElementById("ajoutVinEnregistrer-id").addEventListener("click", () => {
       postVin(ajaxClassVin);
     });
 

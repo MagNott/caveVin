@@ -39,7 +39,6 @@ export class Combo {
       option.textContent = text;
       select.appendChild(option);
     });
-
     zone.appendChild(select);
   }
 

@@ -16,7 +16,7 @@ function generationTableau(ajaxClass) {
       tableauDisplay.innerHTML = "";
 
       tableauAppellation.data = JSON.parse(reponse)["APPELLATION"]["records"];
-      tableauAppellation.header = JSON.parse(reponse)["APPELLATION"]["columns"];
+      tableauAppellation.header = ['Code appellation', 'Appellation'];
       tableauAppellation.BS_toggle_modal = "modal";
       tableauAppellation.BS_target_vue = "#vueAppellationModal";
       tableauAppellation.BS_target_modif = "#modifAppellationModal";

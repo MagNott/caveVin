@@ -67,21 +67,22 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body" id="ajoutVinModalBody">
-                <label for="cuvee">Nom cuvée</label><br />
+                <label for="cuvee">Nom cuvée : </label><br />
                 <input type="text" id="cuvee" name="cuvee" /><br />
-                <label for="appellation">Code appellation</label><br />
-                <input type="text" id="appellation" name="appellation" /><br />
-                <label for="region">Code région</label><br />
-                <input type="text" id="region" name="region" /><br />
-                <label for="couleur">Code couleur</label><br />
-                <input type="text" id="couleur" name="couleur" /><br />
-                <label for="culture">Type de culture</label><br />
+                <label for="cuvee">Appellation : </label><br />
+                <span id="selectAjoutVinAppellation-id"></span><br>
+                <label for="cuvee">Région : </label><br />
+                <span id="selectAjoutVinRegion-id"></span><br>
+                <label for="cuvee">Couleur : </label><br />
+                <span id="selectAjoutVinCouleur-id"></span><br>
+                <label for="culture">Type de culture : </label><br />
                 <input type="text" id="culture" name="culture" /><br />
-                <label for="commentaires">Commentaire</label><br />
+                <label for="commentaires">Commentaire : </label><br />
                 <input type="text" id="commentaires" name="commentaires" /><br />
+               
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-success" data-bs-dismiss="modal" id="ajoutVin-id">Enregistrer</button>
+                <button type="button" class="btn btn-success" data-bs-dismiss="modal" id="ajoutVinEnregistrer-id">Enregistrer</button>
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
               </div>
             </div>

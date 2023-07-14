@@ -4,12 +4,15 @@ import { loadHTML } from "./ajax_Class_Html.js";
 import { ajaxClassRegion } from "./init.js";
 import { Table } from "./Classe_table_complete.js";
 import { Combo } from "./Class_Combo2.js";
-import { ajaxClassPays } from './init.js';
+import { ajaxClassPays, urlRegionNomPays } from './init.js';
+import { urlPaysOrder } from './init.js';
+import { urlRegion } from './init.js';
 
 ("use strict");
 
 
   function generationTableau(ajaxClass) {
+    ajaxClass.Url = urlRegionNomPays
     ajaxClass.get(
       (reponse) => {
         let tableauRegion = new Table();
@@ -18,8 +21,13 @@ import { ajaxClassPays } from './init.js';
         let tableauDisplay = document.getElementById("zone-table-id");
         tableauDisplay.innerHTML = "";
 
-        tableauRegion.data = JSON.parse(reponse)["REGION"]["records"];
-        tableauRegion.header = JSON.parse(reponse)["REGION"]["columns"];
+        const arrayXdimensions = JSON.parse(reponse)["REGION"]
+        const mapFormated = arrayXdimensions.map( (regionArray) => { 
+          return [regionArray.CODEREGION, regionArray.PAYS[0].NOMPAYS, regionArray.NOMREGION]
+        });
+        tableauRegion.data = mapFormated;
+
+        tableauRegion.header = ['Code Région', 'Pays', 'Nom région' ];
         tableauRegion.BS_toggle_modal = "modal";
         tableauRegion.BS_target_vue = "#vueRegionModal";
         tableauRegion.BS_target_modif = "#modifRegionModal";
@@ -61,10 +69,10 @@ import { ajaxClassPays } from './init.js';
             modal.appendChild(document.createElement("br"));
           });
           
-          
+          ajaxClassPays.Url = urlPaysOrder
           ajaxClassPays.get(
             (reponse) => {
-              let comboRegion = new Combo("selectPays-id", "selectDisplay-id", "comboClass");
+              let comboRegion = new Combo("selectPays-id", "selectPaysDisplay-id", "comboClass");
               comboRegion.data = JSON.parse(reponse)["PAYS"]["records"]
               comboRegion.value_selected = codePays
               comboRegion.genererCombo();
@@ -112,14 +120,13 @@ import { ajaxClassPays } from './init.js';
   }
 
   function putRegion(ajaxClass) {
+    ajaxClass.Url = urlRegion
     let codeRegionModif = document.getElementById("input0");
     ajaxClass.Cle = codeRegionModif.value;
-    let codePaysModif = document.getElementById("selectDisplay-id");
+    let codePaysModif = document.getElementById("selectPaysDisplay-id");
     let nomRegionModif = document.getElementById("input2");
     
-    if (codePaysModif.value.length == 0) {
-      alert(" La region doit au moins contenir une lettre");
-    } else if (nomRegionModif.value.length == 0) {
+    if (nomRegionModif.value.length == 0) {
       alert(" La region doit au moins contenir une lettre");
     } else {
     let region = {
@@ -181,6 +188,7 @@ import { ajaxClassPays } from './init.js';
   }
 
   function delRegion(ajaxClass) {
+    ajaxClass.Url = urlRegion
     let codeSuppr = document.getElementById("codeSuppr-id").textContent;
     ajaxClass.Cle = codeSuppr;
 
@@ -238,9 +246,9 @@ import { ajaxClassPays } from './init.js';
     document.getElementById("ajoutregion-id").addEventListener("click", () => {
       ajaxClassPays.get(
         (reponse) => {
-          let comboRegionAjout = new Combo("selectPays-id", "selectPaysDisplay-id", "comboClass");
+          let comboRegionAjout = new Combo("selectAjoutPays-id", "selectPaysDisplay-id", "comboClass");
           comboRegionAjout.data = JSON.parse(reponse)["PAYS"]["records"]
-         document.getElementById("selectPays-id").innerHTML=""
+         document.getElementById("selectAjoutPays-id").innerHTML=""
           comboRegionAjout.genererCombo();
         },
         

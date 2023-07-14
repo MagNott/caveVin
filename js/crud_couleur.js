@@ -16,7 +16,7 @@ function generationTableau(ajaxClass) {
       tableauDisplay.innerHTML = "";
 
       tableauCouleur.data = JSON.parse(reponse)["COULEUR"]["records"];
-      tableauCouleur.header = JSON.parse(reponse)["COULEUR"]["columns"];
+      tableauCouleur.header = ['Code couleur', 'Couleur'];
       tableauCouleur.BS_toggle_modal = "modal";
       tableauCouleur.BS_target_vue = "#vueCouleurModal";
       tableauCouleur.BS_target_modif = "#modifCouleurModal";

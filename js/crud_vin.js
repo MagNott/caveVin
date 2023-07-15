@@ -1,6 +1,6 @@
 import "../node_modules/bootstrap/dist/js/bootstrap.js";
 import { loadHTML } from "./ajax_Class_Html.js";
-import { ajaxClassVin } from "./init.js";
+import { ajaxClassVin, ajaxClassVinCepage } from "./init.js";
 import { Table } from "./Classe_table_complete.js";
 import { Combo } from "./Class_Combo2.js";
 import { ajaxClassCouleur } from "./init.js";
@@ -11,7 +11,7 @@ import { urlRegionOrder } from "./init.js";
 import { urlCouleurOrder } from "./init.js";
 import { urlVinAppellationRegionCouleur } from "./init.js";
 import { urlVin } from "./init.js";
-// import { urlVinCepage } from "./init.js";
+import { urlAcepage } from "./init.js";
 
 ("use strict");
 
@@ -27,7 +27,18 @@ function generationTableau(ajaxClass) {
 
       const arrayXdimensions = JSON.parse(reponse)["VIN"];
       const mapFormated = arrayXdimensions.map((regionArray) => {
-        return [regionArray.CODEVIN, regionArray.NOM_CUVEE,regionArray.CODEAPPELLATION ,regionArray.APPELLATION[0].NOMAPPELLATION, regionArray.CODEREGION ,regionArray.REGION[0].NOMREGION,regionArray.CODECOULEUR , regionArray.COULEUR[0].NOMCOULEUR, regionArray.TYPE_DE_CULTURE, regionArray.COMMENTAIRES];
+        return [
+          regionArray.CODEVIN,
+          regionArray.NOM_CUVEE,
+          regionArray.CODEAPPELLATION,
+          regionArray.APPELLATION[0].NOMAPPELLATION,
+          regionArray.CODEREGION,
+          regionArray.REGION[0].NOMREGION,
+          regionArray.CODECOULEUR,
+          regionArray.COULEUR[0].NOMCOULEUR,
+          regionArray.TYPE_DE_CULTURE,
+          regionArray.COMMENTAIRES,
+        ];
       });
       tableauVin.data = mapFormated;
       tableauVin.header = ["Code Vin", "Nom cuvée", "Code appellation", "Appellation", "Code Région", "Nom région", "Code couleur", "Couleur", "Type de culture", "Commentaires"];
@@ -97,14 +108,14 @@ function generationTableau(ajaxClass) {
               label.innerText = "Couleur :\u00A0";
               codeCouleur = valeursSplitee;
               break;
-              case 7:
-                input.className = "d-none";
-                label.className = "d-none";
+            case 7:
+              input.className = "d-none";
+              label.className = "d-none";
               break;
-              case 8:
-                label.innerText = "Type de Culture :\u00A0";
+            case 8:
+              label.innerText = "Type de Culture :\u00A0";
               break;
-              case 9:
+            case 9:
               label.innerText = "Commentaire :\u00A0";
               break;
           }
@@ -167,6 +178,35 @@ function generationTableau(ajaxClass) {
           modal.appendChild(label);
           modal.appendChild(document.createElement("br"));
         });
+
+        ajaxClassVinCepage.Url = urlAcepage + event.target.value.split("*")[0];
+
+        ajaxClassVinCepage.get(
+          (reponse) => {
+            let VinCepage = JSON.parse(reponse);
+            let label = document.createElement("label");
+            let VinCepageBoucle = VinCepage["CEPAGE"]["records"];
+
+            let tabCepages = VinCepageBoucle.map((element) => {
+              return element[1];
+            });
+            label.innerText = "Cépage : ";
+
+            let ul = document.createElement("ul");
+            label.appendChild(ul);
+            tabCepages.forEach((element) => {
+              let li = document.createElement("li");
+              li.innerText = element;
+              ul.appendChild(li);
+            });
+
+            modal.appendChild(label);
+            modal.appendChild(document.createElement("br"));
+          },
+          (error) => {
+            console.log("La requete GET a échoué : ", error);
+          }
+        );
       };
 
       tableauVin.fonction_suppr = function (event) {
@@ -338,7 +378,6 @@ window.addEventListener("load", () => {
   // c'est pour ca que le second paramettre du load est une fonction fléchée
 
   generationTableau(ajaxClassVin);
-
 
   document.getElementById("modifVin-id").addEventListener("click", () => {
     putVin(ajaxClassVin);

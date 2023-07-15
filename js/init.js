@@ -29,7 +29,9 @@ export let ajaxClassVin = new Ajax_Es6 (urlVin);
 
 export const urlVinAppellationRegionCouleur = urlVin + '?include=APPELLATION,COULEUR,REGION&transform=1'
 
+export const urlAcepage = url + '/A_POUR_CEPAGE?include=CEPAGE&filter=CODEVIN,eq,'
+export let ajaxClassVinCepage = new Ajax_Es6(urlAcepage)
 
-
+// http://fbrc.esy.es/DWWM22239/Api/api.php/A_POUR_CEPAGE?filter=CODEVIN,eq,2&include=CEPAGE
 // fbrc.esy.es/DWWM22239/Api/api.php/
 

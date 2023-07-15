@@ -1,4 +1,4 @@
-import '../node_modules/bootstrap/dist/js/bootstrap.js'
+import "../node_modules/bootstrap/dist/js/bootstrap.js";
 
 import { loadHTML } from "./ajax_Class_Html.js";
 import { ajaxClassPays } from "./init.js";
@@ -16,7 +16,7 @@ function generationTableau(ajaxClass) {
       tableauDisplay.innerHTML = "";
 
       tableauPays.data = JSON.parse(reponse)["PAYS"]["records"];
-      tableauPays.header = ['Code pays', 'Pays'];
+      tableauPays.header = ["Code pays", "Pays"];
       tableauPays.BS_toggle_modal = "modal";
       tableauPays.BS_target_vue = "#vuePaysModal";
       tableauPays.BS_target_modif = "#modifPaysModal";
@@ -72,7 +72,7 @@ function generationTableau(ajaxClass) {
       };
 
       tableauPays.generer();
-      search("txtRech", "paystbody");
+      search("txtRech", "Paystbody");
     },
 
     (error) => {
@@ -85,10 +85,10 @@ function putPays(ajaxClass) {
   let codeModif = document.getElementById("input0");
   ajaxClass.Cle = codeModif.value;
   let paysModif = document.getElementById("input1");
+  let majuscules = /^[A-Z]+$/;
 
-  if (paysModif.value.length == 0) {
-    alert(" Le pays doit au moins contenir une lettre");
-    event.preventDefault();
+  if (paysModif.value.length == 0 || !majuscules.test(paysModif.value)) {
+    alert(" Le pays doit au moins contenir une lettre et être écrit en majuscule");
   } else {
     let pays = {
       NOMPAYS: paysModif.value,
@@ -114,8 +114,10 @@ function putPays(ajaxClass) {
 
 function postPays(ajaxClass) {
   let paysAjout = document.getElementById("pays");
+  let majuscules = /^[A-Z]+$/;
 
-  if (paysAjout.value.length == 0) {
+
+  if (paysAjout.value.length == 0 || !majuscules.test(paysAjout.value)) {
     alert(" Le pays doit au moins contenir une lettre");
     event.preventDefault();
   } else {
@@ -161,13 +163,13 @@ function delPays(ajaxClass) {
   );
 }
 
-function search(saisie, table) {
-  let zoneRecherche = document.getElementById(saisie);
+function search(zoneRechercheId, tbodyId) {
+  let zoneRecherche = document.getElementById(zoneRechercheId);
   zoneRecherche.value = "";
   zoneRecherche.addEventListener(
     "keyup",
     () => {
-      let rows = document.getElementById(table).getElementsByTagName("tr");
+      let rows = document.getElementById(tbodyId).getElementsByTagName("tr");
       for (let item of rows) {
         if (!item.innerText.includes(zoneRecherche.value)) {
           item.classList.add("visually-hidden"); // Classe BS

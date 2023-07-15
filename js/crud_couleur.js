@@ -1,4 +1,4 @@
-import '../node_modules/bootstrap/dist/js/bootstrap.js'
+import "../node_modules/bootstrap/dist/js/bootstrap.js";
 
 import { loadHTML } from "./ajax_Class_Html.js";
 import { ajaxClassCouleur } from "./init.js";
@@ -16,7 +16,7 @@ function generationTableau(ajaxClass) {
       tableauDisplay.innerHTML = "";
 
       tableauCouleur.data = JSON.parse(reponse)["COULEUR"]["records"];
-      tableauCouleur.header = ['Code couleur', 'Couleur'];
+      tableauCouleur.header = ["Code couleur", "Couleur"];
       tableauCouleur.BS_toggle_modal = "modal";
       tableauCouleur.BS_target_vue = "#vueCouleurModal";
       tableauCouleur.BS_target_modif = "#modifCouleurModal";
@@ -72,7 +72,7 @@ function generationTableau(ajaxClass) {
       };
 
       tableauCouleur.generer();
-      search("txtRech", "couleurtbody");
+      search("txtRech", "Couleurtbody");
     },
 
     (error) => {
@@ -87,7 +87,6 @@ function putCouleur(ajaxClass) {
   let couleurModif = document.getElementById("input1");
   if (couleurModif.value.length === 0) {
     alert(" Le pays doit au moins contenir une lettre");
- 
   } else {
     let couleur = {
       NOMCOULEUR: couleurModif.value,
@@ -158,13 +157,13 @@ function delCouleur(ajaxClass) {
   );
 }
 
-function search(saisie, table) {
-  let zoneRecherche = document.getElementById(saisie);
+function search(zoneRechercheId, tbodyId) {
+  let zoneRecherche = document.getElementById(zoneRechercheId);
   zoneRecherche.value = "";
   zoneRecherche.addEventListener(
     "keyup",
     () => {
-      let rows = document.getElementById(table).getElementsByTagName("tr");
+      let rows = document.getElementById(tbodyId).getElementsByTagName("tr");
       for (let item of rows) {
         if (!item.innerText.includes(zoneRecherche.value)) {
           item.classList.add("visually-hidden"); // Classe BS

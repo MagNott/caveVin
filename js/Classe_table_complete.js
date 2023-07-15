@@ -1,5 +1,5 @@
 "use strict";
-import '../node_modules/bootstrap/dist/js/bootstrap.js'
+import "../node_modules/bootstrap/dist/js/bootstrap.js";
 
 export class Table {
   id_zone = "";
@@ -22,9 +22,9 @@ export class Table {
   BS_target_suppr = "";
   id_tbody = "";
   append = false;
-  fonction_vue ;
-  fonction_modif ;
-  fonction_suppr ;
+  fonction_vue;
+  fonction_modif;
+  fonction_suppr;
 
   // il faut initialiser les "variables de classes"
 
@@ -56,8 +56,8 @@ export class Table {
       ligneh.appendChild(celluleheader);
     });
 
-    let thead = document.createElement("thead")
-    thead.appendChild(ligneh)
+    let thead = document.createElement("thead");
+    thead.appendChild(ligneh);
     tableau.appendChild(thead);
     let tbody = document.createElement("tbody");
     tbody.id = this.id_tbody;

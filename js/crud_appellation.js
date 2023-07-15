@@ -16,7 +16,7 @@ function generationTableau(ajaxClass) {
       tableauDisplay.innerHTML = "";
 
       tableauAppellation.data = JSON.parse(reponse)["APPELLATION"]["records"];
-      tableauAppellation.header = ['Code appellation', 'Appellation'];
+      tableauAppellation.header = ["Code appellation", "Appellation"];
       tableauAppellation.BS_toggle_modal = "modal";
       tableauAppellation.BS_target_vue = "#vueAppellationModal";
       tableauAppellation.BS_target_modif = "#modifAppellationModal";
@@ -72,7 +72,7 @@ function generationTableau(ajaxClass) {
       };
 
       tableauAppellation.generer();
-      search("txtRech", "appellationtbody");
+      search("txtRech", "Appellationtbody");
     },
 
     (error) => {
@@ -85,8 +85,7 @@ function putAppellation(ajaxClass) {
   let codeAppellationModif = document.getElementById("input0");
   ajaxClass.Cle = codeAppellationModif.value;
   let nomAppellationModif = document.getElementById("input1");
-  
- 
+
   if (nomAppellationModif.value.length == 0) {
     alert(" La region doit au moins contenir une lettre");
   } else {
@@ -115,7 +114,6 @@ function putAppellation(ajaxClass) {
 
 function postAppellation(ajaxClass) {
   let nomAppellation = document.getElementById("appellation");
-  
 
   if (nomAppellation.value.length == 0) {
     alert(" L'appellation doit au moins contenir une lettre");
@@ -135,7 +133,6 @@ function postAppellation(ajaxClass) {
 
         generationTableau(ajaxClass);
         nomAppellation.value = "";
-        
       },
       () => {
         alert("Erreur");
@@ -163,13 +160,13 @@ function delAppellation(ajaxClass) {
   );
 }
 
-function search(saisie, table) {
-  let zoneRecherche = document.getElementById(saisie);
+function search(zoneRechercheId, tbodyId) {
+  let zoneRecherche = document.getElementById(zoneRechercheId);
   zoneRecherche.value = "";
   zoneRecherche.addEventListener(
     "keyup",
     () => {
-      let rows = document.getElementById(table).getElementsByTagName("tr");
+      let rows = document.getElementById(tbodyId).getElementsByTagName("tr");
       for (let item of rows) {
         if (!item.innerText.includes(zoneRecherche.value)) {
           item.classList.add("visually-hidden"); // Classe BS

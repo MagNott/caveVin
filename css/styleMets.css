@@ -1,0 +1,8 @@
+thead th:nth-child(2),
+tbody td:nth-child(2)
+{
+  display: none;
+}
+
+
+/* document.querySelectorAll('thead th:nth-child(2)') */

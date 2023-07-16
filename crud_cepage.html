@@ -6,9 +6,10 @@
     <link href="css/style.css" rel="stylesheet" />
     <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="node_modules/bootstrap-icons/font/bootstrap-icons.min.css" />
-   
+    
+    
 
-    <title>Cave à vin - CRUD Couleur</title>
+    <title>Cave à vin - CRUD Cépage</title>
   </head>
 
   <body class="d-flex flex-column min-vh-100">
@@ -19,12 +20,12 @@
     <main class="container">
 
     <section class="container-fluid text-center">
-      <h1>Page Couleur</h1>
+      <h1>Page Cépage</h1>
 
 
     </section>
 
-    <div id="table-couleur-id"></div>
+    <div id="table-cepage-id"></div>
 
     <section>
       
@@ -35,7 +36,7 @@
         
         </section>
   
-        <button type="button" class="btn btn-success btn-lg" data-bs-toggle="modal" data-bs-target="#ajoutCouleurModal" id="ajoutcouleur-id">Ajout Couleur</button>
+        <button type="button" class="btn btn-success btn-lg" data-bs-toggle="modal" data-bs-target="#ajoutCepageModal" id="ajoutcepage-id">Ajout Cépage</button>
   
         <div class="form-inline my-4" id="rechercheContainer">
           <label for="txtRech"><b>Recherche&nbsp;&nbsp;</b> </label> <input type="text" class="form-control" id="txtRech" name="txtRech" placeholder="saisir le début de votre recherche" />&nbsp;
@@ -44,14 +45,14 @@
   
         <div id="zone-table-id"></div>
   
-        <div class="modal fade" id="vueCouleurModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="vueCouleurModalLabel" aria-hidden="true">
+        <div class="modal fade" id="vueCepageModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="vueCepageModalLabel" aria-hidden="true">
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title" id="vueCouleurModalLabel">Vue d'une couleur</h5>
+                <h5 class="modal-title" id="vueCepageModalLabel">Vue d'un cépage</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
-              <div class="modal-body" id="vueCouleurModalBody">...</div>
+              <div class="modal-body" id="vueCepageModalBody">...</div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
               </div>
@@ -59,52 +60,52 @@
           </div>
         </div>
   
-        <div class="modal fade" id="ajoutCouleurModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="ajoutCouleurModalLabel" aria-hidden="true">
+        <div class="modal fade" id="ajoutCepageModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="ajoutCepageModalLabel" aria-hidden="true">
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title" id="ajoutCouleurModalLabel">Ajout d'une voiture</h5>
+                <h5 class="modal-title" id="ajoutCepageModalLabel">Ajout d'un cepage</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
-              <div class="modal-body" id="ajoutCouleurModalBody">
-                <label for="couleur">Couleur</label><br />
-                <input type="text" id="couleur" name="couleur" /><br />
+              <div class="modal-body" id="ajoutCepageModalBody">
+                <label for="cepage">Cépage</label><br />
+                <input type="text" id="cepage" name="cepage" /><br />
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-success" data-bs-dismiss="modal" id="ajoutCouleur-id">Enregistrer</button>
+                <button type="button" class="btn btn-success" data-bs-dismiss="modal" id="ajoutCepage-id">Enregistrer</button>
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
               </div>
             </div>
           </div>
         </div>
   
-        <div class="modal fade" id="modifCouleurModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modifCouleurModalLabel" aria-hidden="true">
+        <div class="modal fade" id="modifCepageModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modifCepageModalLabel" aria-hidden="true">
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title" id="modifCouleurModalLabel">Modifier une couleur</h5>
+                <h5 class="modal-title" id="modifCepageModalLabel">Modifier un cépage</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
   
-              <div class="modal-body" id="modifCouleurModalBody">...</div>
+              <div class="modal-body" id="modifCepageModalBody">...</div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-success" data-bs-dismiss="modal" id="modifCouleur-id">Modifier</button>
+                <button type="button" class="btn btn-success" data-bs-dismiss="modal" id="modifCepage-id">Modifier</button>
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
               </div>
             </div>
           </div>
         </div>
   
-        <div class="modal fade" id="supprCouleurModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="supprCouleurModalLabel" aria-hidden="true">
+        <div class="modal fade" id="supprCepageModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="supprCepageModalLabel" aria-hidden="true">
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title" id="supprCouleurModalLabel">Voulez-vous vraiment supprimer ce couleur ?</h5>
+                <h5 class="modal-title" id="supprCepageModalLabel">Voulez-vous vraiment supprimer ce cépage ?</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
-              <div class="modal-body" id="supprCouleurModalBody">...</div>
+              <div class="modal-body" id="supprCepageModalBody">...</div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-bs-dismiss="modal" id="supprCouleur-id">Supprimer</button>
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal" id="supprCepage-id">Supprimer</button>
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
               </div>
             </div>
@@ -130,7 +131,7 @@
         <div id="bandeaumodif-id" class="alert alert-primary d-flex show d-none align-items-center alert-dismissible fade fixed-top" role="alert">
           <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Info:"><use xlink:href="#info-fill" /></svg>
           <div>
-            Cette couleur a bien été modifié
+            Ce cépage a bien été modifié
             <button id="btnModifDismiss" type="button" class="btn-close" aria-label="close"></button>
           </div>
         </div>
@@ -138,14 +139,14 @@
         <div id="bandeauajout-id" class="alert alert-success d-flex show d-none align-items-center alert-dismissible fade fixed-top" role="alert">
           <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill" /></svg>
           <div>
-            Cette couleur a bien été ajoutée
+            Ce cépage a bien été ajoutée
             <button id="btnAjoutDismiss" type="button" class="btn-close" aria-label="close"></button>
           </div>
         </div>
   
         <div id="bandeausuppr-id" class="alert alert-danger d-flex show d-none align-items-center alert-dismissible fade fixed-top" role="alert">
           <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill" /></svg>
-          <div>Cette couleur a bien été supprimée</div>
+          <div>Ce cépage a bien été supprimée</div>
           <button id="btnSupprDismiss" type="button" class="btn-close" aria-label="Close"></button>
         </div>
       </main>
@@ -153,7 +154,7 @@
   
    
     <footer id="footer-id" class="mt-auto"></footer>
-
-    <script type="module" src="js/crud_couleur.js"></script>
+  
+    <script type="module" src="js/crud_cepage.js"></script>
   </body>
 </html>

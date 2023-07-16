@@ -241,8 +241,8 @@ function putVin(ajaxClass) {
   let codeAppellationModif = document.getElementById("selectAppellationDisplay-id");
   let codeRegionModif = document.getElementById("selectRegionDisplay-id");
   let codeCouleurModif = document.getElementById("selectCouleurDisplay-id");
-  let typeCultureMofif = document.getElementById("input5");
-  let commentairesModif = document.getElementById("input6");
+  let typeCultureMofif = document.getElementById("input8");
+  let commentairesModif = document.getElementById("input9");
 
   if (nomCuveeModif.value.length == 0) {
     alert("Le nom de cuvée doit au moins contenir une lettre");

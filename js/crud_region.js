@@ -1,5 +1,4 @@
 import "../node_modules/bootstrap/dist/js/bootstrap.js";
-
 import { loadHTML } from "./ajax_Class_Html.js";
 import { ajaxClassRegion } from "./init.js";
 import { Table } from "./Classe_table_complete.js";
@@ -128,7 +127,7 @@ function putRegion(ajaxClass) {
   let codeRegionModif = document.getElementById("input0");
   ajaxClass.Cle = codeRegionModif.value;
   let codePaysModif = document.getElementById("selectPaysDisplay-id");
-  let nomRegionModif = document.getElementById("input2");
+  let nomRegionModif = document.getElementById("input3");
 
   if (nomRegionModif.value.length == 0) {
     alert(" La region doit au moins contenir une lettre");
@@ -247,6 +246,7 @@ window.addEventListener("load", () => {
   });
 
   document.getElementById("ajoutregion-id").addEventListener("click", () => {
+    ajaxClassPays.Url = urlPaysOrder;
     ajaxClassPays.get(
       (reponse) => {
         let comboRegionAjout = new Combo("selectAjoutPays-id", "selectPaysDisplay-id", "comboClass");

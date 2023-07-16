@@ -4,11 +4,13 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="css/style.css" rel="stylesheet" />
+    <link href="css/styleMets.css" rel="stylesheet"/>
     <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="node_modules/bootstrap-icons/font/bootstrap-icons.min.css" />
-   
+    
+    
 
-    <title>Cave à vin - CRUD Couleur</title>
+    <title>Cave à vin - CRUD Mets</title>
   </head>
 
   <body class="d-flex flex-column min-vh-100">
@@ -19,12 +21,12 @@
     <main class="container">
 
     <section class="container-fluid text-center">
-      <h1>Page Couleur</h1>
+      <h1>Page Mets</h1>
 
 
     </section>
 
-    <div id="table-couleur-id"></div>
+    <div id="table-mets-id"></div>
 
     <section>
       
@@ -35,7 +37,7 @@
         
         </section>
   
-        <button type="button" class="btn btn-success btn-lg" data-bs-toggle="modal" data-bs-target="#ajoutCouleurModal" id="ajoutcouleur-id">Ajout Couleur</button>
+        <button type="button" class="btn btn-success btn-lg" data-bs-toggle="modal" data-bs-target="#ajoutMetsModal" id="ajoutMetsModal-id">Ajout Mets</button>
   
         <div class="form-inline my-4" id="rechercheContainer">
           <label for="txtRech"><b>Recherche&nbsp;&nbsp;</b> </label> <input type="text" class="form-control" id="txtRech" name="txtRech" placeholder="saisir le début de votre recherche" />&nbsp;
@@ -44,14 +46,14 @@
   
         <div id="zone-table-id"></div>
   
-        <div class="modal fade" id="vueCouleurModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="vueCouleurModalLabel" aria-hidden="true">
+        <div class="modal fade" id="vueMetsModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="vueMetsModalLabel" aria-hidden="true">
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title" id="vueCouleurModalLabel">Vue d'une couleur</h5>
+                <h5 class="modal-title" id="vueMetsModalLabel">Vue d'un Mets</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
-              <div class="modal-body" id="vueCouleurModalBody">...</div>
+              <div class="modal-body" id="vueMetsModalBody">...</div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
               </div>
@@ -59,52 +61,56 @@
           </div>
         </div>
   
-        <div class="modal fade" id="ajoutCouleurModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="ajoutCouleurModalLabel" aria-hidden="true">
+        <div class="modal fade" id="ajoutMetsModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="ajoutMetsModalLabel" aria-hidden="true">
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title" id="ajoutCouleurModalLabel">Ajout d'une voiture</h5>
+                <h5 class="modal-title" id="ajoutMetsModalLabel">Ajout d'un met</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
-              <div class="modal-body" id="ajoutCouleurModalBody">
-                <label for="couleur">Couleur</label><br />
-                <input type="text" id="couleur" name="couleur" /><br />
+              <div class="modal-body" id="ajoutMetsModalBody">
+                <label for="categorieMets">Categorie mets</label><br />
+                <span id="selectAjoutMetCategorie-id"></span><br />
+                <label for="mets">Nom met</label><br />
+                <input type="text" id="mets" name="mets" /><br />
+                <label for="lienRecette">Lien recette</label><br />
+                <input type="text" id="lienRecette" name="lienRecette" /><br />
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-success" data-bs-dismiss="modal" id="ajoutCouleur-id">Enregistrer</button>
+                <button type="button" class="btn btn-success" data-bs-dismiss="modal" id="ajoutMets-id">Enregistrer</button>
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
               </div>
             </div>
           </div>
         </div>
   
-        <div class="modal fade" id="modifCouleurModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modifCouleurModalLabel" aria-hidden="true">
+        <div class="modal fade" id="modifMetsModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modifMetsModalLabel" aria-hidden="true">
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title" id="modifCouleurModalLabel">Modifier une couleur</h5>
+                <h5 class="modal-title" id="modifMetsModalLabel">Modifier un Met</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
   
-              <div class="modal-body" id="modifCouleurModalBody">...</div>
+              <div class="modal-body" id="modifMetsModalBody">...</div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-success" data-bs-dismiss="modal" id="modifCouleur-id">Modifier</button>
+                <button type="button" class="btn btn-success" data-bs-dismiss="modal" id="modifMets-id">Modifier</button>
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
               </div>
             </div>
           </div>
         </div>
   
-        <div class="modal fade" id="supprCouleurModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="supprCouleurModalLabel" aria-hidden="true">
+        <div class="modal fade" id="supprMetsModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="supprMetsModalLabel" aria-hidden="true">
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title" id="supprCouleurModalLabel">Voulez-vous vraiment supprimer ce couleur ?</h5>
+                <h5 class="modal-title" id="supprMetsModalLabel">Voulez-vous vraiment supprimer ce met ?</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
-              <div class="modal-body" id="supprCouleurModalBody">...</div>
+              <div class="modal-body" id="supprMetsModalBody">...</div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-bs-dismiss="modal" id="supprCouleur-id">Supprimer</button>
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal" id="supprMets-id">Supprimer</button>
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
               </div>
             </div>
@@ -130,7 +136,7 @@
         <div id="bandeaumodif-id" class="alert alert-primary d-flex show d-none align-items-center alert-dismissible fade fixed-top" role="alert">
           <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Info:"><use xlink:href="#info-fill" /></svg>
           <div>
-            Cette couleur a bien été modifié
+            Ce met a bien été modifié
             <button id="btnModifDismiss" type="button" class="btn-close" aria-label="close"></button>
           </div>
         </div>
@@ -138,14 +144,14 @@
         <div id="bandeauajout-id" class="alert alert-success d-flex show d-none align-items-center alert-dismissible fade fixed-top" role="alert">
           <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill" /></svg>
           <div>
-            Cette couleur a bien été ajoutée
+            Ce met a bien été ajoutée
             <button id="btnAjoutDismiss" type="button" class="btn-close" aria-label="close"></button>
           </div>
         </div>
   
         <div id="bandeausuppr-id" class="alert alert-danger d-flex show d-none align-items-center alert-dismissible fade fixed-top" role="alert">
           <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill" /></svg>
-          <div>Cette couleur a bien été supprimée</div>
+          <div>Ce met a bien été supprimée</div>
           <button id="btnSupprDismiss" type="button" class="btn-close" aria-label="Close"></button>
         </div>
       </main>
@@ -153,7 +159,7 @@
   
    
     <footer id="footer-id" class="mt-auto"></footer>
-
-    <script type="module" src="js/crud_couleur.js"></script>
+  
+    <script type="module" src="js/crud_mets.js"></script>
   </body>
 </html>

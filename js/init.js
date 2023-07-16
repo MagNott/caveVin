@@ -32,6 +32,10 @@ export const urlVinAppellationRegionCouleur = urlVin + '?include=APPELLATION,COU
 export const urlAcepage = url + '/A_POUR_CEPAGE?include=CEPAGE&filter=CODEVIN,eq,'
 export let ajaxClassVinCepage = new Ajax_Es6(urlAcepage)
 
+export const urlMetsVin = url + 'METS?include=VIN&transform=1'
+
+
+
 // http://fbrc.esy.es/DWWM22239/Api/api.php/A_POUR_CEPAGE?filter=CODEVIN,eq,2&include=CEPAGE
 // fbrc.esy.es/DWWM22239/Api/api.php/
 

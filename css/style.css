@@ -6,16 +6,17 @@
     width: 30em;
 }
 
-body {
+/* body {
     background-color: rgb(255, 255, 255);
 }
 
 .green {
   background-color: rgb(78, 51, 51);
-}
+} */
 
 .footer {
-  background-color: rgb(123, 17, 17);
+  background-color: #343a40;
   text-align: center;
+  color:#999a96
 }
 

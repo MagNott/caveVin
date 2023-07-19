@@ -1,4 +1,4 @@
-import "../node_modules/bootstrap/dist/js/bootstrap.js";
+// import "../node_modules/bootstrap/dist/js/bootstrap.js";
 import { loadHTML } from "./ajax_Class_Html.js";
 import { ajaxClassMets } from "./init.js";
 import { Table } from "./Classe_table_complete.js";
@@ -6,7 +6,8 @@ import { urlMetsCategorieMets } from "./init.js";
 import { urlMets } from "./init.js";
 import { urlCategorieMetsOrder } from "./init.js"
 import { ajaxClassCategorieMets } from "./init.js";
-import { Combo } from "./Class_Combo2.js";
+import { Combo } from "./Class_Combo.js";
+import "../node_modules/bootstrap/dist/js/bootstrap.bundle.js";
 
 ("use strict");
 
@@ -36,7 +37,7 @@ function generationTableau(ajaxClass) {
       tableauMets.class_vue = "btn btn-secondary btn-sm bi bi-eye";
       tableauMets.class_modif = "btn btn-info btn-sm bi bi-pencil";
       tableauMets.class_suppr = "btn btn-danger btn-sm bi bi-trash";
-      tableauMets.class_table = "table table-dark table-striped table-hover";
+      tableauMets.class_table = "table table-dark table-striped table-hover text-center align-middle";
 
       tableauMets.fonction_modif = function (event) {
         let modal = document.getElementById("modifMetsModalBody");

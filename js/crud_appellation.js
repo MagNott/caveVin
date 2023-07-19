@@ -1,8 +1,8 @@
-import "../node_modules/bootstrap/dist/js/bootstrap.js";
-
+// import "../node_modules/bootstrap/dist/js/bootstrap.js";
 import { loadHTML } from "./ajax_Class_Html.js";
 import { ajaxClassAppellation } from "./init.js";
 import { Table } from "./Classe_table_complete.js";
+import "../node_modules/bootstrap/dist/js/bootstrap.bundle.js";
 
 ("use strict");
 
@@ -25,7 +25,7 @@ function generationTableau(ajaxClass) {
       tableauAppellation.class_vue = "btn btn-secondary btn-sm bi bi-eye";
       tableauAppellation.class_modif = "btn btn-info btn-sm bi bi-pencil";
       tableauAppellation.class_suppr = "btn btn-danger btn-sm bi bi-trash";
-      tableauAppellation.class_table = "table table-dark table-striped table-hover";
+      tableauAppellation.class_table = "table table-dark table-striped table-hover text-center align-middle";
 
       tableauAppellation.fonction_modif = function (event) {
         let modal = document.getElementById("modifAppellationModalBody");

@@ -1,8 +1,8 @@
-import "../node_modules/bootstrap/dist/js/bootstrap.js";
+// import "../node_modules/bootstrap/dist/js/bootstrap.js";
 import { loadHTML } from "./ajax_Class_Html.js";
 import { ajaxClassVin, ajaxClassVinCepage } from "./init.js";
 import { Table } from "./Classe_table_complete.js";
-import { Combo } from "./Class_Combo2.js";
+import { Combo } from "./Class_Combo.js";
 import { ajaxClassCouleur } from "./init.js";
 import { ajaxClassAppellation } from "./init.js";
 import { ajaxClassRegion } from "./init.js";
@@ -12,18 +12,22 @@ import { urlCouleurOrder } from "./init.js";
 import { urlVinAppellationRegionCouleur } from "./init.js";
 import { urlVin } from "./init.js";
 import { urlAcepage } from "./init.js";
+import "../node_modules/bootstrap/dist/js/bootstrap.bundle.js";
 
 ("use strict");
 
 function generationTableau(ajaxClass) {
   ajaxClass.Url = urlVinAppellationRegionCouleur;
+  //Utilisation l'url combiné avec 4 api, utile pour la génération des combos dans les modales
   ajaxClass.get(
     (reponse) => {
       let tableauVin = new Table();
+      //Instanciation d'un nouvel objet tableauvin permettant de générer la table des vins en utilisant la classe table
       tableauVin.id_zone = "zone-table-id";
 
       let tableauDisplay = document.getElementById("zone-table-id");
       tableauDisplay.innerHTML = "";
+      //réinitialidation du tableau lors de sa mise à jour
 
       const arrayXdimensions = JSON.parse(reponse)["VIN"];
       const mapFormated = arrayXdimensions.map((regionArray) => {
@@ -39,9 +43,17 @@ function generationTableau(ajaxClass) {
           regionArray.TYPE_DE_CULTURE,
           regionArray.COMMENTAIRES,
         ];
+      //Utilisation du array map pour ajouter des colonnes, celles contenant les noms et pas les codes, afin de permettre
+      //l'affichage des nom dans le tableau.
+      //la méthode map s'applique que un tableau et permet de retrouner un nouveau tableau. Ici j'ai parsé la réponse de la methode get
+      // pour obtenir un tableau que je manipule en lui ajoutant des colonnes  
+      // les colonnes codes sont masquées en css   
       });
       tableauVin.data = mapFormated;
+      //c'est le nouveau tableau qui sert de paramétrage pour créer la table des vins
       tableauVin.header = ["Code Vin", "Nom cuvée", "Code appellation", "Appellation", "Code Région", "Nom région", "Code couleur", "Couleur", "Type de culture", "Commentaires"];
+      // la classe table permet de base de pouvoir générer les header automatiquement en fonction de l'api, ici il était nécessaire de 
+      // reformer le header à la main suite à l'jout des colonnes
       tableauVin.BS_toggle_modal = "modal";
       tableauVin.BS_target_vue = "#vueVinModal";
       tableauVin.BS_target_modif = "#modifVinModal";
@@ -50,41 +62,50 @@ function generationTableau(ajaxClass) {
       tableauVin.class_vue = "btn btn-secondary btn-sm bi bi-eye";
       tableauVin.class_modif = "btn btn-info btn-sm bi bi-pencil";
       tableauVin.class_suppr = "btn btn-danger btn-sm bi bi-trash";
-      tableauVin.class_table = "table table-dark table-striped table-hover";
+      tableauVin.class_table = "table table-dark table-striped table-hover text-center align-middle";
 
       tableauVin.fonction_modif = function (event) {
+        //application d'une fonction anonyme sur le paramètre (variable de classe) .fonction_modif afin de pouvoir 
+        //mette plusieurs instructions pour la paramtrer
         let modal = document.getElementById("modifVinModalBody");
         modal.innerHTML = "";
+        //réinitialisation de la modale après modification
 
         let codeAppellation;
         let codeRegion;
         let codeCouleur;
+        // /!\ Déclaration des variable en dehors du ForEach pour avoir une portée globale 
 
         event.target.value.split("*").forEach((valeursSplitee, index) => {
           let input = document.createElement("input");
           let label = document.createElement("label");
-          // if (index == 0) {
-          //   input.disabled = true;
-          // }
+          //génération des champs de façon automatique grace au ForEach en splitant les données de l'api
 
           label.innerHTML = `${tableauVin.header[index]} : &nbsp;`;
           input.id = `input${index}`;
           input.value = valeursSplitee;
+          //replissage des champs
+
           switch (index) {
+            // utilisation de switch afin de moduler l'affichage des champs dans la modale, pour ne pas afficher ceux qui correspondent
+            //aux colonnes codes suite à l'ajout des colonnes noms avec array map, j'en ai profité pour enler le champs code qui n'a pas 
+            //besoin d'être modifié
             case 0:
               input.className = "d-none";
               label.className = "d-none";
               break;
             case 1:
               label.innerText = "Nom cuvée :\u00A0";
-              //
+              // Paramétrage du label et ajout d'un espace insécable après le : pour l'esthétique
               break;
             case 2:
               let spanAppellation = document.createElement("span");
               spanAppellation.id = "selectAppellation-id";
               input = spanAppellation;
+              //ajout d'une span avec un id pour pouvoir repointer dessus plus tard dans le code
               label.innerText = "Appellation :\u00A0";
               codeAppellation = valeursSplitee;
+              //intégration de la valeur splitée dans la variable codeAppellation pour réutilisation lors de la génération de combo
               break;
             case 3:
               input.className = "d-none";
@@ -96,6 +117,7 @@ function generationTableau(ajaxClass) {
               input = spanRegion;
               label.innerText = "Région :\u00A0";
               codeRegion = valeursSplitee;
+              //meme manip que précédemment
               break;
             case 5:
               input.className = "d-none";
@@ -107,6 +129,7 @@ function generationTableau(ajaxClass) {
               input = spanCouleur;
               label.innerText = "Couleur :\u00A0";
               codeCouleur = valeursSplitee;
+              //même manip que précédemment
               break;
             case 7:
               input.className = "d-none";
@@ -126,10 +149,14 @@ function generationTableau(ajaxClass) {
         });
 
         ajaxClassAppellation.Url = urlAppellationOrder;
+        // utilisation de l'url appellation permettant l'ordre alphabétique pour générer le combo correspondant
         ajaxClassAppellation.get(
+          // utilisation de la méthode get pour récupérer les données
           (reponse) => {
             let comboAppellation = new Combo("selectAppellation-id", "selectAppellationDisplay-id", "comboClass");
+            // instanciation d'un nouvel objet combo auquel on passe en paramétres les id qui permettront de pointe dessus plus tard
             comboAppellation.data = JSON.parse(reponse)["APPELLATION"]["records"];
+            // parse 
             comboAppellation.value_selected = codeAppellation;
             comboAppellation.genererCombo();
           },

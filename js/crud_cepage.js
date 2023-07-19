@@ -1,7 +1,8 @@
-import "../node_modules/bootstrap/dist/js/bootstrap.js";
+// import "../node_modules/bootstrap/dist/js/bootstrap.js";
 import { loadHTML } from "./ajax_Class_Html.js";
 import { ajaxClassCepage } from "./init.js";
 import { Table } from "./Classe_table_complete.js";
+import "../node_modules/bootstrap/dist/js/bootstrap.bundle.js";
 
 
 ("use strict");
@@ -25,7 +26,7 @@ function generationTableau(ajaxClass) {
       tableauCepage.class_vue = "btn btn-secondary btn-sm bi bi-eye";
       tableauCepage.class_modif = "btn btn-info btn-sm bi bi-pencil";
       tableauCepage.class_suppr = "btn btn-danger btn-sm bi bi-trash";
-      tableauCepage.class_table = "table table-dark table-striped table-hover";
+      tableauCepage.class_table = "table table-dark table-striped table-hover text-center align-middle";
 
       tableauCepage.fonction_modif = function (event) {
         let modal = document.getElementById("modifCepageModalBody");

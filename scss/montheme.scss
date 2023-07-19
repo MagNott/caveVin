@@ -1,5 +1,15 @@
 
 
+$secondary:    #ede0ab !default;
+$info: #91dd98 !default;
+$danger: #744450 !default;
+$success: #175021 !default;
+// $light: #bcbcbc !default;
+
+$border-radius: 5px; // Définir la valeur de rayon souhaitée
+.button {
+    border-radius: $border-radius;
+  }
 
 
 

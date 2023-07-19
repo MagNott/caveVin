@@ -1,8 +1,9 @@
 import "../node_modules/bootstrap/dist/js/bootstrap.js";
+import "../node_modules/bootstrap/dist/js/bootstrap.bundle.js";
 import { loadHTML } from "./ajax_Class_Html.js";
 import { ajaxClassRegion } from "./init.js";
 import { Table } from "./Classe_table_complete.js";
-import { Combo } from "./Class_Combo2.js";
+import { Combo } from "./Class_Combo.js";
 import { ajaxClassPays, urlRegionNomPays } from "./init.js";
 import { urlPaysOrder } from "./init.js";
 import { urlRegion } from "./init.js";
@@ -34,7 +35,7 @@ function generationTableau(ajaxClass) {
       tableauRegion.class_vue = "btn btn-secondary btn-sm bi bi-eye";
       tableauRegion.class_modif = "btn btn-info btn-sm bi bi-pencil";
       tableauRegion.class_suppr = "btn btn-danger btn-sm bi bi-trash";
-      tableauRegion.class_table = "table table-dark table-striped table-hover";
+      tableauRegion.class_table = "table table-dark table-striped table-hover text-center align-middle";
 
       tableauRegion.fonction_modif = function (event) {
         let modal = document.getElementById("modifRegionModalBody");

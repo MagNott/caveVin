@@ -1,3 +1,8 @@
+
+//Page permettant référencer toutes les url utiles au développement 
+// y compris celles qui "combinent" les api et celles qui permettent de le mettre en ordre alphabétique.
+//Intentiations des objets class Ajax utiles au développement dans les pages du site.
+
 import {Ajax_Es6} from "./Ajax_class.js";
 
 const url = "https://afpafabrice.space/DWWM22239/Api/api.php/";
@@ -53,6 +58,4 @@ export const urlCategorieMetsOrder = urlCategorieMets + '?order=LIBELLE_CATEGORI
  
 
 
-// http://fbrc.esy.es/DWWM22239/Api/api.php/A_POUR_CEPAGE?filter=CODEVIN,eq,2&include=CEPAGE
-// fbrc.esy.es/DWWM22239/Api/api.php/
 

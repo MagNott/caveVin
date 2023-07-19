@@ -6,6 +6,7 @@
     width: 30em;
 }
 
+
 /* body {
     background-color: rgb(255, 255, 255);
 }
@@ -20,3 +21,20 @@
   color:#999a96
 }
 
+th {
+  vertical-align: middle !important;
+}
+
+button {
+  border-radius: 10px; /* Utilisez la valeur souhaitée pour arrondir les coins */
+}
+.w-100 {
+  width: 100% !important;
+}
+
+.carouselExample {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; 
+}

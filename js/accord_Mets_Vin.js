@@ -26,6 +26,7 @@ window.addEventListener("load", () => {
     (reponse) => {
       let dataAccordMetsVin = JSON.parse(reponse);
       let rowOpen;
+      let containerGenere = '<div class="row row-flex">';
 
       dataAccordMetsVin.METS.forEach((met, index) => {
         let vinCommentaires = met.S_ACCORDE_AVEC.map((accord) => {
@@ -48,14 +49,14 @@ window.addEventListener("load", () => {
           .join("");
 
         // 0 1 2 au lieu des noms des vins
-        if (index % 2 === 0) {
-          cardContainer.innerHTML += `<div class="row">`;
-          rowOpen = true; // Marquer la div row comme ouverte
-        }
 
-        const cardHTML = `
-      
-        <div class="col-md-6">
+        // if (index % 2 === 0) {
+        //   containerGenere += `<div class="row">`;
+        //   rowOpen = true; // Marquer la div row comme ouverte
+        // }
+
+        const cardHTML = `   
+        <div class="col-md-6 my-2">
           <div class="card text-center">
             <div class="card-header">
               <b>
@@ -74,8 +75,18 @@ window.addEventListener("load", () => {
             </div>
           </div>
           </div>
-        <br>
         `;
+
+        containerGenere += cardHTML;
+
+        // if (index % 2 === 1 || index === vinCommentaires.length - 1) {
+        //   containerGenere += `</div>`;
+        //   rowOpen = false; // Marquer la div row comme fermée
+        // }
+
+        // if (rowOpen) {
+        //   containerGenere += `</div> `;
+        // }
 
         // `
         // <div class="row">
@@ -109,18 +120,10 @@ window.addEventListener("load", () => {
         //     </div>
         //   </div>
         //  </div>`;
-
-        cardContainer.innerHTML += cardHTML;
-
-        if (index % 2 === 1 || index === vinCommentaires.length - 1) {
-          cardContainer.innerHTML += `<span data-truc="mod1"></span></div>`;
-          rowOpen = false; // Marquer la div row comme fermée
-        }
-
-        if (rowOpen) {
-          cardContainer.innerHTML += `<span data-truc="open></span>/div `;
-        }
       });
+
+      cardContainer.innerHTML = containerGenere + `</div> `;
+
       // https://getbootstrap.com/docs/5.0/components/popovers/
       var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'));
       popoverTriggerList.forEach(function (popoverTriggerEl) {

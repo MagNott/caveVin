@@ -72,6 +72,7 @@ window.addEventListener("load", () => {
             <a href="${met.LIEN_RECETTE}" target="blank" class="btn btn-primary">Voir la recette</a>
             </div>
           </div>
+          <br>
         `;
         
 

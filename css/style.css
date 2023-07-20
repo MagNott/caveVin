@@ -36,5 +36,7 @@ button {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh; 
+  max-height: w-10 !important;
+  position: fixed; 
+  max-width: w-10;
 }

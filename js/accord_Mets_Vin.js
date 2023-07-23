@@ -48,13 +48,6 @@ window.addEventListener("load", () => {
           })
           .join("");
 
-        // 0 1 2 au lieu des noms des vins
-
-        // if (index % 2 === 0) {
-        //   containerGenere += `<div class="row">`;
-        //   rowOpen = true; // Marquer la div row comme ouverte
-        // }
-
         const cardHTML = `   
         <div class="col-md-6 my-2">
           <div class="card text-center">
@@ -76,50 +69,7 @@ window.addEventListener("load", () => {
           </div>
           </div>
         `;
-
         containerGenere += cardHTML;
-
-        // if (index % 2 === 1 || index === vinCommentaires.length - 1) {
-        //   containerGenere += `</div>`;
-        //   rowOpen = false; // Marquer la div row comme fermée
-        // }
-
-        // if (rowOpen) {
-        //   containerGenere += `</div> `;
-        // }
-
-        // `
-        // <div class="row">
-        //   <div class="col-sm-6 mb-3 mb-sm-0">
-        //     <div class="card">
-        //     <div class="card-header">
-        //     ${met.NOM}
-        //     </div>
-        //         <div class="card-body">
-        //         <h5 class="card-title">🍷 Les vins pouvants accompagner ce plat sont :
-        //         ${popovervinCommentaires}</h5>
-        //         <p class="card-text"><em>Cliquez sur le vin pour connaitre son commentaire</em></p>
-        //         <div class="card-footer text-body-secondary">
-        //         <a href="${met.LIEN_RECETTE}" class="btn btn-primary">Voir la recette</a>
-        //         </div>
-        //       </div>
-        //     </div>
-        //   </div>
-        //   <div class="col-sm-6">
-        //     <div class="card">
-        //     <div class="card-header">
-        //     ${met.NOM}
-        //     </div>
-        //       <div class="card-body">
-        //         <h5 class="card-title"> 🍷 Les vins pouvants accompagner ce plat sont :  ${popovervinCommentaires}</h5>
-        //         <p class="card-text"><em>Cliquez sur le vin pour connaitre son commentaire</em></p>
-        //         <div class="card-footer text-body-secondary">
-        //         <a href=" ${met.LIEN_RECETTE}" class="btn btn-primary">Voir la recette</a>
-        //         </div>
-        //       </div>
-        //     </div>
-        //   </div>
-        //  </div>`;
       });
 
       cardContainer.innerHTML = containerGenere + `</div> `;

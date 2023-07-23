@@ -24,9 +24,12 @@ function generationTableau(ajaxClass) {
       const mapFormated = arrayXdimensions.map((regionArray) => {
         return [regionArray.CODEREGION, regionArray.CODEPAYS, regionArray.PAYS[0].NOMPAYS, regionArray.NOMREGION];
       });
+      //La méthode .map() permet de modifier un tableau, elle s'appuie sur le tableau de référence et retourne un nouveau
+      //tableau
       tableauRegion.data = mapFormated;
 
       tableauRegion.header = ["Code Région", "Code Pays", "Pays", "Nom région"];
+      //Renommage du header en incluant la colonne supplémentaire
       tableauRegion.BS_toggle_modal = "modal";
       tableauRegion.BS_target_vue = "#vueRegionModal";
       tableauRegion.BS_target_modif = "#modifRegionModal";
@@ -38,16 +41,22 @@ function generationTableau(ajaxClass) {
       tableauRegion.class_table = "table table-dark table-striped table-hover text-center align-middle";
 
       tableauRegion.fonction_modif = function (event) {
+        // paramétrage de la variable de classe ".fonction_modif"
         let modal = document.getElementById("modifRegionModalBody");
         modal.innerHTML = "";
+        //réinitialisation de la modale
         let codePays;
         event.target.value.split("*").forEach((valeursSplitee, index) => {
+        //Le for each permet de générer le contenu de la modale  
           let input = document.createElement("input");
           let label = document.createElement("label");
           label.innerHTML = `${tableauRegion.header[index]} : &nbsp;`;
+          // templates litterals pour afficher le nom des labels en fonction du header
           input.id = `input${index}`;
+          // templates littérals pour générer les id des champs des modales pour pouvoir les attraper en la foncion put
           input.value = valeursSplitee;
           switch (index) {
+            //Utilisation du switch case pour personnaliser le contenu de la modale
             case 0:
               input.className = "d-none";
               label.className = "d-none";
@@ -75,11 +84,16 @@ function generationTableau(ajaxClass) {
         ajaxClassPays.Url = urlPaysOrder;
         ajaxClassPays.get(
           (reponse) => {
+            //Utilisation de la classe Combo pour générer un combo box
             let comboRegion = new Combo("selectPays-id", "selectPaysDisplay-id", "comboClass");
+            //Instanciation d'un nouvel ojet combo
             comboRegion.data = JSON.parse(reponse)["PAYS"]["records"];
+            //parse de la réponse à l'appel de l'api, les donnes sont un objet JSON
             comboRegion.value_selected = codePays;
+            //La variable code pays est valorisé plus haut lors du switch case avec la valeur splitée de l'objet json parsé
             comboRegion.genererCombo();
           },
+          //switch case et generation de combo bos à l'intérieur du for Each, autant d'occurence que de colonnes
 
           (error) => {
             console.log("La requete GET a échoué : ", error);

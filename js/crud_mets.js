@@ -28,7 +28,7 @@ function generationTableau(ajaxClass) {
       });
       tableauMets.data = mapFormated;
       // tableauMets.data = JSON.parse(reponse)["METS"]["records"];
-      tableauMets.header = ["Code met", " Code categorie mets", "Nom catégorie mets", "Nom du met", "Lien recette"];
+      tableauMets.header = ["Code met", " Code categorie de mets", "Nom d'une catégorie de mets", "Nom du met", "Lien de la recette"];
       tableauMets.BS_toggle_modal = "modal";
       tableauMets.BS_target_vue = "#vueMetsModal";
       tableauMets.BS_target_modif = "#modifMetsModal";

@@ -207,15 +207,26 @@ function generationTableau(ajaxClass) {
         });
 
         ajaxClassVinCepage.Url = urlAcepage + event.target.value.split("*")[0];
+        //Concaténation de l'url permettant l'accès à la table d'association, enrichie de la table Cépage
+        //avec l'index qui represente le code vin
+        //Event taget représente le bouton sur lequel le add event listener a lieu
+        //Les valeurs sont splitées car la value est en chaine de caractère
 
         ajaxClassVinCepage.get(
           (reponse) => {
             let VinCepage = JSON.parse(reponse);
+            //Reponse est une chaine de caractere, on la transforme en ojbet litteral avec json parse
             let label = document.createElement("label");
             let VinCepageBoucle = VinCepage["CEPAGE"]["records"];
+            //Ce qui est entre crochet permet de "filtrer" les données qui m'interesse dans l'objet complet
+            //C'est un parcours de structure, il ressort un tableau à deux dimensions
 
             let tabCepages = VinCepageBoucle.map((element) => {
               return element[1];
+            //Element est le couple de valeur "code cepage" et "nom cepage"
+            //A l'indice 1 c'est uniquement le nom du cepage 
+            //Le array map() permet de créer un tableau avec seulement les noms des cepages qui m'intéresse
+
             });
             label.innerText = "Cépage : ";
 
@@ -225,6 +236,7 @@ function generationTableau(ajaxClass) {
               let li = document.createElement("li");
               li.innerText = element;
               ul.appendChild(li);
+            // Génération des puces pour l'affichage des cépages dans la modale
             });
 
             modal.appendChild(label);

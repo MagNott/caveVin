@@ -25,29 +25,40 @@ window.addEventListener("load", () => {
   ajax.get(
     (reponse) => {
       let dataAccordMetsVin = JSON.parse(reponse);
-      let rowOpen;
       let containerGenere = '<div class="row row-flex">';
 
       dataAccordMetsVin.METS.forEach((met, index) => {
+        // Data récupérées mets + vin et comme j'ai voulu faire des cards mets, j'ai filtré le for each avec .METS
         let vinCommentaires = met.S_ACCORDE_AVEC.map((accord) => {
+          //Array map pour pour gérer la popover et récupérer un tableau des vins et de leurs commentaires
+          //For each sur les mets c'est pourquoi on le note "met.S_ACCORDE...."
+          //pour chaque met on a une entrée s'accorde avec
+          //le parametre itterateur accord vas itterer sur une data
           return accord.VIN.map((vinCourant) => {
             return [vinCourant.NOM_CUVEE, vinCourant.COMMENTAIRES];
           });
         });
 
+        // Triple boucle forEach + array.map()
+        // Le for each contiens un array map qui return les accords et sert de
+        // base pour refaire un array map pour return le tableau nom + commentaire du vin
+        // la 1ere boucle est sur l'api MET, la 2nde boucle va chercher les accords et la 3ème parcours le tableau des 
+        // vins et return un tableau avec len om du vin et le commmentaire - c'est ca qui sert pour popover
+
         let popovervinCommentaires = vinCommentaires
           .map((vinEtCommentaire) => {
-            // const vin = vinCommentaires[0];
-            // const commentaire = vinCommentaires[1];
-            //  data-bs-content = vin[0]
-            //   NOM DU VIN = vin[1]
+            //Utilisation de la variable vinCommentaire qui contient et le vin et le commentaire pour faire un array map
+            // et compléter les popovers 
+            // J'utilise le template litterals pour fabriquer le contenu de la card et des popovers
             return `<button type="button" class="btn btn-lg btn-light" data-bs-toggle="popover" 
             data-bs-title="Commentaire" 
             data-bs-placement="right" 
             data-bs-content="${vinEtCommentaire[0][1]}">${vinEtCommentaire[0][0]}</button>`;
           })
           .join("");
+           // Le join permet d'éviter un affichage tableau avec des virgules 
 
+        // template litterals pour remplir la cards
         const cardHTML = `   
         <div class="col-md-6 my-2">
           <div class="card text-center">
@@ -71,14 +82,15 @@ window.addEventListener("load", () => {
         `;
         containerGenere += cardHTML;
       });
-
       cardContainer.innerHTML = containerGenere + `</div> `;
 
-      // https://getbootstrap.com/docs/5.0/components/popovers/
+   
       var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'));
       popoverTriggerList.forEach(function (popoverTriggerEl) {
         new bootstrap.Popover(popoverTriggerEl);
       });
+       // Ces lignes servent pour initialiser les popover, pour que le commentaire s'affiche au clic 
+      // grâce a cette doc : https://getbootstrap.com/docs/5.0/components/popovers/
     },
     (error) => {
       console.log("La requete GET a échoué : ", error);

@@ -89,7 +89,7 @@ window.addEventListener("load", () => {
       popoverTriggerList.forEach(function (popoverTriggerEl) {
         new bootstrap.Popover(popoverTriggerEl)
       })
-      // ces lignes serven pour initialiser les popover, càd que le commentaire s'affiche au clic grace a cette doc
+      // ces lignes servent pour initialiser les popover, càd que le commentaire s'affiche au clic grace à cette doc
       // https://getbootstrap.com/docs/5.0/components/popovers/
     }, 
     (error) => {

@@ -1,13 +1,16 @@
 // import "../node_modules/bootstrap/dist/js/bootstrap.js";
-
+import "../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js";
+import "../node_modules/@popperjs/core/dist/umd/popper.min.js";
 import { loadHTML } from "./ajax_Class_Html.js";
 import { ajaxClassCouleur } from "./init.js";
 import { Table } from "./Classe_table_complete.js";
+import { urlCouleurOrder } from "./init.js";
 import "../node_modules/bootstrap/dist/js/bootstrap.bundle.js";
 
 ("use strict");
 
 function generationTableau(ajaxClass) {
+  ajaxClass.Url = urlCouleurOrder;
   ajaxClass.get(
     (reponse) => {
       let tableauCouleur = new Table();

@@ -1,13 +1,15 @@
 // import "../node_modules/bootstrap/dist/js/bootstrap.js";
-
+import "../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js";
+import "../node_modules/@popperjs/core/dist/umd/popper.min.js";
 import { loadHTML } from "./ajax_Class_Html.js";
-import { ajaxClassPays } from "./init.js";
+import { ajaxClassPays, urlPaysOrder } from "./init.js";
 import { Table } from "./Classe_table_complete.js";
 import "../node_modules/bootstrap/dist/js/bootstrap.bundle.js";
 
 ("use strict");
 
 function generationTableau(ajaxClass) {
+  ajaxClass.Url = urlPaysOrder;
   ajaxClass.get(
     (reponse) => {
       let tableauPays = new Table();
@@ -116,7 +118,6 @@ function putPays(ajaxClass) {
 function postPays(ajaxClass) {
   let paysAjout = document.getElementById("pays");
   let majuscules = /^[A-Z]+$/;
-
 
   if (paysAjout.value.length == 0 || !majuscules.test(paysAjout.value)) {
     alert(" Le pays doit au moins contenir une lettre");

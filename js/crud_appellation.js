@@ -1,12 +1,15 @@
 // import "../node_modules/bootstrap/dist/js/bootstrap.js";
+import "../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js";
+import "../node_modules/@popperjs/core/dist/umd/popper.min.js";
 import { loadHTML } from "./ajax_Class_Html.js";
 import { ajaxClassAppellation } from "./init.js";
 import { Table } from "./Classe_table_complete.js";
 import "../node_modules/bootstrap/dist/js/bootstrap.bundle.js";
-
+import { urlAppellationOrder } from "./init.js";
 ("use strict");
 
 function generationTableau(ajaxClass) {
+  ajaxClass.Url = urlAppellationOrder;
   ajaxClass.get(
     (reponse) => {
       let tableauAppellation = new Table();

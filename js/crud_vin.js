@@ -1,4 +1,6 @@
 // import "../node_modules/bootstrap/dist/js/bootstrap.js";
+import "../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js";
+import "../node_modules/@popperjs/core/dist/umd/popper.min.js";
 import { loadHTML } from "./ajax_Class_Html.js";
 import { ajaxClassVin, ajaxClassVinCepage } from "./init.js";
 import { Table } from "./Classe_table_complete.js";
@@ -43,16 +45,16 @@ function generationTableau(ajaxClass) {
           regionArray.TYPE_DE_CULTURE,
           regionArray.COMMENTAIRES,
         ];
-      //Utilisation du array map pour ajouter des colonnes, celles contenant les noms et pas les codes, afin de permettre
-      //l'affichage des nom dans le tableau.
-      //la méthode map s'applique que un tableau et permet de retrouner un nouveau tableau. Ici j'ai parsé la réponse de la methode get
-      // pour obtenir un tableau que je manipule en lui ajoutant des colonnes  
-      // les colonnes codes sont masquées en css   
+        //Utilisation du array map pour ajouter des colonnes, celles contenant les noms et pas les codes, afin de permettre
+        //l'affichage des nom dans le tableau.
+        //la méthode map s'applique que un tableau et permet de retrouner un nouveau tableau. Ici j'ai parsé la réponse de la methode get
+        // pour obtenir un tableau que je manipule en lui ajoutant des colonnes
+        // les colonnes codes sont masquées en css
       });
       tableauVin.data = mapFormated;
       //c'est le nouveau tableau qui sert de paramétrage pour créer la table des vins
       tableauVin.header = ["Code Vin", "Nom cuvée", "Code appellation", "Appellation", "Code Région", "Nom région", "Code couleur", "Couleur", "Type de culture", "Commentaires"];
-      // la classe table permet de base de pouvoir générer les header automatiquement en fonction de l'api, ici il était nécessaire de 
+      // la classe table permet de base de pouvoir générer les header automatiquement en fonction de l'api, ici il était nécessaire de
       // reformer le header à la main suite à l'jout des colonnes
       tableauVin.BS_toggle_modal = "modal";
       tableauVin.BS_target_vue = "#vueVinModal";
@@ -65,7 +67,7 @@ function generationTableau(ajaxClass) {
       tableauVin.class_table = "table table-dark table-striped table-hover text-center align-middle";
 
       tableauVin.fonction_modif = function (event) {
-        //application d'une fonction anonyme sur le paramètre (variable de classe) .fonction_modif afin de pouvoir 
+        //application d'une fonction anonyme sur le paramètre (variable de classe) .fonction_modif afin de pouvoir
         //mette plusieurs instructions pour la paramtrer
         let modal = document.getElementById("modifVinModalBody");
         modal.innerHTML = "";
@@ -74,7 +76,7 @@ function generationTableau(ajaxClass) {
         let codeAppellation;
         let codeRegion;
         let codeCouleur;
-        // /!\ Déclaration des variable en dehors du ForEach pour avoir une portée globale 
+        // /!\ Déclaration des variable en dehors du ForEach pour avoir une portée globale
 
         event.target.value.split("*").forEach((valeursSplitee, index) => {
           let input = document.createElement("input");
@@ -88,7 +90,7 @@ function generationTableau(ajaxClass) {
 
           switch (index) {
             // utilisation de switch afin de moduler l'affichage des champs dans la modale, pour ne pas afficher ceux qui correspondent
-            //aux colonnes codes suite à l'ajout des colonnes noms avec array map, j'en ai profité pour enler le champs code qui n'a pas 
+            //aux colonnes codes suite à l'ajout des colonnes noms avec array map, j'en ai profité pour enler le champs code qui n'a pas
             //besoin d'être modifié
             case 0:
               input.className = "d-none";
@@ -156,7 +158,7 @@ function generationTableau(ajaxClass) {
             let comboAppellation = new Combo("selectAppellation-id", "selectAppellationDisplay-id", "comboClass");
             // instanciation d'un nouvel objet combo auquel on passe en paramétres les id qui permettront de pointe dessus plus tard
             comboAppellation.data = JSON.parse(reponse)["APPELLATION"]["records"];
-            // parse 
+            // parse
             comboAppellation.value_selected = codeAppellation;
             comboAppellation.genererCombo();
           },
@@ -223,10 +225,9 @@ function generationTableau(ajaxClass) {
 
             let tabCepages = VinCepageBoucle.map((element) => {
               return element[1];
-            //Element est le couple de valeur "code cepage" et "nom cepage"
-            //A l'indice 1 c'est uniquement le nom du cepage 
-            //Le array map() permet de créer un tableau avec seulement les noms des cepages qui m'intéresse
-
+              //Element est le couple de valeur "code cepage" et "nom cepage"
+              //A l'indice 1 c'est uniquement le nom du cepage
+              //Le array map() permet de créer un tableau avec seulement les noms des cepages qui m'intéresse
             });
             label.innerText = "Cépage : ";
 
@@ -236,7 +237,7 @@ function generationTableau(ajaxClass) {
               let li = document.createElement("li");
               li.innerText = element;
               ul.appendChild(li);
-            // Génération des puces pour l'affichage des cépages dans la modale
+              // Génération des puces pour l'affichage des cépages dans la modale
             });
 
             modal.appendChild(label);

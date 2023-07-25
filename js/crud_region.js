@@ -1,4 +1,6 @@
 // import "../node_modules/bootstrap/dist/js/bootstrap.js";
+import "../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js";
+import "../node_modules/@popperjs/core/dist/umd/popper.min.js";
 import { loadHTML } from "./ajax_Class_Html.js";
 import { ajaxClassRegion } from "./init.js";
 import { Table } from "./Classe_table_complete.js";
@@ -47,7 +49,7 @@ function generationTableau(ajaxClass) {
         //réinitialisation de la modale
         let codePays;
         event.target.value.split("*").forEach((valeursSplitee, index) => {
-        //Le for each permet de générer le contenu de la modale  
+          //Le for each permet de générer le contenu de la modale
           let input = document.createElement("input");
           let label = document.createElement("label");
           label.innerHTML = `${tableauRegion.header[index]} : &nbsp;`;

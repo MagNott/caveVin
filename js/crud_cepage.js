@@ -1,13 +1,16 @@
 // import "../node_modules/bootstrap/dist/js/bootstrap.js";
+import "../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js";
+import "../node_modules/@popperjs/core/dist/umd/popper.min.js";
 import { loadHTML } from "./ajax_Class_Html.js";
 import { ajaxClassCepage } from "./init.js";
 import { Table } from "./Classe_table_complete.js";
+import { urlCepageOrder } from "./init.js";
 import "../node_modules/bootstrap/dist/js/bootstrap.bundle.js";
-
 
 ("use strict");
 
 function generationTableau(ajaxClass) {
+  ajaxClass.Url = urlCepageOrder;
   ajaxClass.get(
     (reponse) => {
       let tableauCepage = new Table();
@@ -115,8 +118,6 @@ function putCepage(ajaxClass) {
 
 function postCepage(ajaxClass) {
   let cepageAjout = document.getElementById("cepage");
- 
-
 
   if (cepageAjout.value.length == 0) {
     alert(" Le cepage doit au moins contenir une lettre");

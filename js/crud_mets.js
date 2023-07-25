@@ -1,10 +1,12 @@
 // import "../node_modules/bootstrap/dist/js/bootstrap.js";
+import "../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js";
+import "../node_modules/@popperjs/core/dist/umd/popper.min.js";
 import { loadHTML } from "./ajax_Class_Html.js";
 import { ajaxClassMets } from "./init.js";
 import { Table } from "./Classe_table_complete.js";
 import { urlMetsCategorieMets } from "./init.js";
 import { urlMets } from "./init.js";
-import { urlCategorieMetsOrder } from "./init.js"
+import { urlCategorieMetsOrder } from "./init.js";
 import { ajaxClassCategorieMets } from "./init.js";
 import { Combo } from "./Class_Combo.js";
 import "../node_modules/bootstrap/dist/js/bootstrap.bundle.js";
@@ -20,7 +22,6 @@ function generationTableau(ajaxClass) {
 
       let tableauDisplay = document.getElementById("zone-table-id");
       tableauDisplay.innerHTML = "";
-
 
       const arrayXdimensions = JSON.parse(reponse)["METS"];
       const mapFormated = arrayXdimensions.map((regionArray) => {
@@ -72,10 +73,9 @@ function generationTableau(ajaxClass) {
           modal.appendChild(label);
           modal.appendChild(input);
           modal.appendChild(document.createElement("br"));
-
         });
         ajaxClassCategorieMets.Url = urlCategorieMetsOrder;
-        console.log(urlCategorieMetsOrder)
+        console.log(urlCategorieMetsOrder);
         ajaxClassCategorieMets.get(
           (reponse) => {
             let comboMets = new Combo("selectCategorieMets-id", "selectCategorieMetsDisplay-id", "comboClass");
@@ -87,8 +87,9 @@ function generationTableau(ajaxClass) {
 
           (error) => {
             console.log("La requete GET a échoué : ", error);
-          });
-  };
+          }
+        );
+      };
 
       tableauMets.fonction_vue = function (event) {
         let modal = document.getElementById("vueMetsModalBody");
@@ -127,7 +128,7 @@ function generationTableau(ajaxClass) {
 }
 
 function putMets(ajaxClass) {
-  ajaxClass.Url = urlMets
+  ajaxClass.Url = urlMets;
   let codeModif = document.getElementById("input0");
   ajaxClass.Cle = codeModif.value;
   let categorieMetsModif = document.getElementById("selectCategorieMetsDisplay-id");
@@ -136,13 +137,13 @@ function putMets(ajaxClass) {
 
   if (nomMetsModif.value.length == 0) {
     alert(" Le met doit au moins contenir une lettre.");
-  } else if (nomRecetteModif.value.length == 0){
+  } else if (nomRecetteModif.value.length == 0) {
     alert(" L'url de la recette doit au moins contenir une lettre.");
   } else {
     let mets = {
       ID_CATEGORIE_METS: categorieMetsModif.value,
       NOM: nomMetsModif.value,
-      LIEN_RECETTE: nomRecetteModif.value
+      LIEN_RECETTE: nomRecetteModif.value,
     };
 
     ajaxClass.put(
@@ -165,18 +166,16 @@ function putMets(ajaxClass) {
 
 function postMets(ajaxClass) {
   let metsAjout = document.getElementById("mets");
-  let categorieMets = document.getElementById("ajoutMetsCombo-id")
-  let lienRecette = document.getElementById("lienRecette")
+  let categorieMets = document.getElementById("ajoutMetsCombo-id");
+  let lienRecette = document.getElementById("lienRecette");
 
-  
   if (metsAjout.value.length == 0) {
     alert(" Le met doit au moins contenir une lettre");
-    
   } else {
     let mets = {
       ID_CATEGORIE_METS: categorieMets.value,
       NOM: metsAjout.value,
-      LIEN_RECETTE: lienRecette.value
+      LIEN_RECETTE: lienRecette.value,
     };
 
     ajaxClass.post(
@@ -185,7 +184,7 @@ function postMets(ajaxClass) {
         ajaxClass.Cle = "";
         document.getElementById("bandeauajout-id").classList.remove("d-none");
         document.getElementById("btnAjoutDismiss").addEventListener("click", () => {
-        document.getElementById("bandeauajout-id").classList.add("d-none");
+          document.getElementById("bandeauajout-id").classList.add("d-none");
         });
 
         generationTableau(ajaxClass);
@@ -282,8 +281,5 @@ window.addEventListener("load", () => {
 
   document.getElementById("supprMets-id").addEventListener("click", () => {
     delMets(ajaxClassMets);
-  })
+  });
 });
-
-
-

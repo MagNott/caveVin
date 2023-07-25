@@ -15,3 +15,31 @@ tbody td:nth-child(7)
 {
   display: none;
 }
+
+@media screen and (max-width: 767px){
+  thead th:nth-child(4),
+  tbody td:nth-child(4) 
+  {
+    display: none;
+  }
+  thead th:nth-child(6),
+  tbody td:nth-child(6) 
+  {
+    display: none;
+  }
+  thead th:nth-child(8),
+  tbody td:nth-child(8) 
+  {
+    display: none;
+  }
+  thead th:nth-child(9),
+  tbody td:nth-child(9) 
+  {
+    display: none;
+  }
+  thead th:nth-child(10),
+  tbody td:nth-child(10) 
+  {
+    display: none;
+  }
+}

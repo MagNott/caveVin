@@ -1,4 +1,3 @@
-// import "../node_modules/bootstrap/dist/js/bootstrap.js";
 import "../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js";
 import "../node_modules/@popperjs/core/dist/umd/popper.min.js";
 import { loadHTML } from "./ajax_Class_Html.js";
@@ -89,7 +88,6 @@ function putCepage(ajaxClass) {
   let codeModif = document.getElementById("input0");
   ajaxClass.Cle = codeModif.value;
   let cepageModif = document.getElementById("input1");
-  let majuscules = /^[A-Z]+$/;
 
   if (cepageModif.value.length == 0) {
     alert(" Le cepage doit au moins contenir une lettre et être écrit en majuscule");
@@ -121,7 +119,6 @@ function postCepage(ajaxClass) {
 
   if (cepageAjout.value.length == 0) {
     alert(" Le cepage doit au moins contenir une lettre");
-    event.preventDefault();
   } else {
     let cepage = {
       NOMCEPAGE: cepageAjout.value,

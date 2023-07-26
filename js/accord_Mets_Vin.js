@@ -1,7 +1,5 @@
-// https://getbootstrap.com/docs/5.0/getting-started/introduction/
 import "../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js";
 import "../node_modules/@popperjs/core/dist/umd/popper.min.js";
-// import "../node_modules/bootstrap/dist/js/bootstrap.min.js";
 import "../node_modules/bootstrap/dist/js/bootstrap.bundle.js";
 import { loadHTML } from "./ajax_Class_Html.js";
 import { Ajax_Es6 } from "./Ajax_class.js";
@@ -42,13 +40,13 @@ window.addEventListener("load", () => {
         // Triple boucle forEach + array.map()
         // Le for each contiens un array map qui return les accords et sert de
         // base pour refaire un array map pour return le tableau nom + commentaire du vin
-        // la 1ere boucle est sur l'api MET, la 2nde boucle va chercher les accords et la 3ème parcours le tableau des 
+        // la 1ere boucle est sur l'api MET, la 2nde boucle va chercher les accords et la 3ème parcours le tableau des
         // vins et return un tableau avec len om du vin et le commmentaire - c'est ca qui sert pour popover
 
         let popovervinCommentaires = vinCommentaires
           .map((vinEtCommentaire) => {
             //Utilisation de la variable vinCommentaire qui contient et le vin et le commentaire pour faire un array map
-            // et compléter les popovers 
+            // et compléter les popovers
             // J'utilise le template litterals pour fabriquer le contenu de la card et des popovers
             return `<button type="button" class="btn btn-lg btn-light" data-bs-toggle="popover" 
             data-bs-title="Commentaire" 
@@ -56,7 +54,7 @@ window.addEventListener("load", () => {
             data-bs-content="${vinEtCommentaire[0][1]}">${vinEtCommentaire[0][0]}</button>`;
           })
           .join("");
-           // Le join permet d'éviter un affichage tableau avec des virgules 
+        // Le join permet d'éviter un affichage tableau avec des virgules
 
         // template litterals pour remplir la cards
         const cardHTML = `   
@@ -84,12 +82,11 @@ window.addEventListener("load", () => {
       });
       cardContainer.innerHTML = containerGenere + `</div> `;
 
-   
       var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'));
       popoverTriggerList.forEach(function (popoverTriggerEl) {
         new bootstrap.Popover(popoverTriggerEl);
       });
-       // Ces lignes servent pour initialiser les popover, pour que le commentaire s'affiche au clic 
+      // Ces lignes servent pour initialiser les popover, pour que le commentaire s'affiche au clic
       // grâce a cette doc : https://getbootstrap.com/docs/5.0/components/popovers/
     },
     (error) => {

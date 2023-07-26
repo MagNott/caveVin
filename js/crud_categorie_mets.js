@@ -1,4 +1,3 @@
-// import "../node_modules/bootstrap/dist/js/bootstrap.js";
 import "../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js";
 import "../node_modules/@popperjs/core/dist/umd/popper.min.js";
 import { loadHTML } from "./ajax_Class_Html.js";
@@ -117,8 +116,6 @@ function putCategorieMets(ajaxClass) {
 
 function postCategorieMets(ajaxClass) {
   let CategorieMetsAjout = document.getElementById("CategorieMets");
-  
-
 
   if (CategorieMetsAjout.value.length == 0) {
     alert(" La catégorie mets doit au moins contenir une lettre");
@@ -126,16 +123,14 @@ function postCategorieMets(ajaxClass) {
     let CategorieMets = {
       LIBELLE_CATEGORIE: CategorieMetsAjout.value,
     };
-// jeter un oeil à https://afpafabrice.space/DWWM22239/Api/api.php//CATEGORIE_METS
-// ça vous donnera un indice sur le nom de la clef à envoyer en body du post (les columns sont les noms des champs)
-// signé, le développeur masqué
+
     ajaxClass.post(
       JSON.stringify(CategorieMets),
       () => {
         ajaxClass.Cle = "";
         document.getElementById("bandeauajout-id").classList.remove("d-none");
         document.getElementById("btnAjoutDismiss").addEventListener("click", () => {
-        document.getElementById("bandeauajout-id").classList.add("d-none");
+          document.getElementById("bandeauajout-id").classList.add("d-none");
         });
 
         generationTableau(ajaxClass);
@@ -210,6 +205,4 @@ window.addEventListener("load", () => {
   document.getElementById("supprCategorieMets-id").addEventListener("click", () => {
     delCategorieMets(ajaxClassCategorieMets);
   });
-
-
 });

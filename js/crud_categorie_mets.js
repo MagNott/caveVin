@@ -6,7 +6,7 @@ import { loadHTML } from "./ajax_Class_Html.js";
 import { ajaxClassCategorieMets } from "./init.js";
 import { Table } from "./Classe_table_complete.js";
 import { urlCategorieMetsOrder } from "./init.js";
-
+import { urlCategorieMets } from "./init.js";
 ("use strict");
 
 function generationTableau(ajaxClass) {
@@ -88,6 +88,7 @@ function generationTableau(ajaxClass) {
 function putCategorieMets(ajaxClass) {
   let codeModif = document.getElementById("input0");
   ajaxClass.Cle = codeModif.value;
+  ajaxClass.Url = urlCategorieMets
   let CategorieMetsModif = document.getElementById("input1");
 
   if (CategorieMetsModif.value.length == 0) {
@@ -148,7 +149,8 @@ function postCategorieMets(ajaxClass) {
 function delCategorieMets(ajaxClass) {
   let codeSuppr = document.getElementById("codeSuppr-id").textContent;
   ajaxClass.Cle = codeSuppr;
-
+  ajaxClass.Url = urlCategorieMets;
+  
   ajaxClass.del(
     () => {
       ajaxClass.Cle = "";

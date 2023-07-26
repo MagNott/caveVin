@@ -8,18 +8,18 @@ import {Ajax_Es6} from "./Ajax_class.js";
 const url = "https://afpafabrice.space/DWWM22239/Api/api.php/";
 
 
-const urlPays = url + "/PAYS";
+export const urlPays = url + "/PAYS";
 export let ajaxClassPays = new Ajax_Es6(urlPays);
 export const urlPaysOrder = urlPays + '?order=NOMPAYS,asc';
 
 
 
-const urlCouleur = url + "/COULEUR";
+export const urlCouleur = url + "/COULEUR";
 export let ajaxClassCouleur = new Ajax_Es6(urlCouleur);
 export const urlCouleurOrder = urlCouleur + '?order=NOMCOULEUR,asc';
 
 
-const urlAppellation = url + "/APPELLATION";
+export const urlAppellation = url + "/APPELLATION";
 export const urlAppellationOrder = urlAppellation + '?order=NOMAPPELLATION,asc';
 export let ajaxClassAppellation = new Ajax_Es6(urlAppellation);
 

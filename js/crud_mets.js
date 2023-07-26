@@ -10,7 +10,6 @@ import { urlMets } from "./init.js";
 import { urlCategorieMetsOrder } from "./init.js"
 import { ajaxClassCategorieMets } from "./init.js";
 import { Combo } from "./Class_Combo.js";
-
 ("use strict");
 
 function generationTableau(ajaxClass) {

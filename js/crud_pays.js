@@ -6,7 +6,7 @@ import { urlPaysOrder } from "./init.js";
 import { loadHTML } from "./ajax_Class_Html.js";
 import { ajaxClassPays } from "./init.js";
 import { Table } from "./Classe_table_complete.js";
-
+import { urlPays } from "./init.js";
 ("use strict");
 
 function generationTableau(ajaxClass) {
@@ -88,6 +88,7 @@ function generationTableau(ajaxClass) {
 function putPays(ajaxClass) {
   let codeModif = document.getElementById("input0");
   ajaxClass.Cle = codeModif.value;
+  ajaxClass.Url = urlPays;
   let paysModif = document.getElementById("input1");
   let majuscules = /^[A-Z]+$/;
 
@@ -151,7 +152,7 @@ function postPays(ajaxClass) {
 function delPays(ajaxClass) {
   let codeSuppr = document.getElementById("codeSuppr-id").textContent;
   ajaxClass.Cle = codeSuppr;
-
+ajaxClass.Url = urlPays;
   ajaxClass.del(
     () => {
       ajaxClass.Cle = "";

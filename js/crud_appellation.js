@@ -6,7 +6,7 @@ import { urlAppellationOrder } from "./init.js";
 import { loadHTML } from "./ajax_Class_Html.js";
 import { ajaxClassAppellation } from "./init.js";
 import { Table } from "./Classe_table_complete.js";
-
+import { urlAppellation } from "./init.js";
 ("use strict");
 
 function generationTableau(ajaxClass) {
@@ -88,6 +88,7 @@ function generationTableau(ajaxClass) {
 function putAppellation(ajaxClass) {
   let codeAppellationModif = document.getElementById("input0");
   ajaxClass.Cle = codeAppellationModif.value;
+  ajaxClass.Url = urlAppellation;
   let nomAppellationModif = document.getElementById("input1");
 
   if (nomAppellationModif.value.length == 0) {
@@ -148,6 +149,7 @@ function postAppellation(ajaxClass) {
 function delAppellation(ajaxClass) {
   let codeSuppr = document.getElementById("codeSuppr-id").textContent;
   ajaxClass.Cle = codeSuppr;
+  ajaxClass.Url = urlAppellation;
 
   ajaxClass.del(
     () => {

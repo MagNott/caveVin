@@ -135,16 +135,4 @@ export class Table {
     }
   }
 
-  //ici ce sont les fonctions d'actions des boutons, elles sont vides car rien n'est demandé dessus (prochain exo ?)
-  // fonction_modif() {
-  //   ;
-  // }
-
-  // fonction_vue() {
-  //   alert("Je suis dans la fonction vue");
-  // }
-
-  // fonction_suppr() {
-  //   alert("Je suis dans la fonction suppr");
-  // }
 }

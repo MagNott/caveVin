@@ -126,9 +126,6 @@ function postCategorieMets(ajaxClass) {
     let CategorieMets = {
       LIBELLE_CATEGORIE: CategorieMetsAjout.value,
     };
-// jeter un oeil à https://afpafabrice.space/DWWM22239/Api/api.php//CATEGORIE_METS
-// ça vous donnera un indice sur le nom de la clef à envoyer en body du post (les columns sont les noms des champs)
-// signé, le développeur masqué
     ajaxClass.post(
       JSON.stringify(CategorieMets),
       () => {

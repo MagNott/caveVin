@@ -1,7 +1,7 @@
 import "../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js";
 import "../node_modules/@popperjs/core/dist/umd/popper.min.js";
 import { loadHTML } from "./ajax_Class_Html.js";
-import { ajaxClassPays, urlPaysOrder } from "./init.js";
+import { ajaxClassPays, urlPaysOrder, urlPays } from "./init.js";
 import { Table } from "./Classe_table_complete.js";
 import "../node_modules/bootstrap/dist/js/bootstrap.bundle.js";
 
@@ -86,6 +86,7 @@ function generationTableau(ajaxClass) {
 function putPays(ajaxClass) {
   let codeModif = document.getElementById("input0");
   ajaxClass.Cle = codeModif.value;
+  ajaxClass.Url = urlPays;
   let paysModif = document.getElementById("input1");
   let majuscules = /^[A-Z]+$/;
 
@@ -148,6 +149,7 @@ function postPays(ajaxClass) {
 function delPays(ajaxClass) {
   let codeSuppr = document.getElementById("codeSuppr-id").textContent;
   ajaxClass.Cle = codeSuppr;
+  ajaxClass.Url = urlPays;
 
   ajaxClass.del(
     () => {

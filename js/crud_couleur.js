@@ -3,7 +3,7 @@ import "../node_modules/@popperjs/core/dist/umd/popper.min.js";
 import { loadHTML } from "./ajax_Class_Html.js";
 import { ajaxClassCouleur } from "./init.js";
 import { Table } from "./Classe_table_complete.js";
-import { urlCouleurOrder } from "./init.js";
+import { urlCouleurOrder, urlCouleur } from "./init.js";
 import "../node_modules/bootstrap/dist/js/bootstrap.bundle.js";
 
 ("use strict");
@@ -87,6 +87,7 @@ function generationTableau(ajaxClass) {
 function putCouleur(ajaxClass) {
   let codeModif = document.getElementById("input0");
   ajaxClass.Cle = codeModif.value;
+  ajaxClass.Url = urlCouleur;
   let couleurModif = document.getElementById("input1");
   if (couleurModif.value.length === 0) {
     alert(" Le pays doit au moins contenir une lettre");
@@ -144,6 +145,7 @@ function postCouleur(ajaxClass) {
 function delCouleur(ajaxClass) {
   let codeSuppr = document.getElementById("codeSuppr-id").textContent;
   ajaxClass.Cle = codeSuppr;
+  ajaxClass.Url = urlCouleur;
 
   ajaxClass.del(
     () => {

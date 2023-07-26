@@ -3,7 +3,7 @@ import "../node_modules/@popperjs/core/dist/umd/popper.min.js";
 import { loadHTML } from "./ajax_Class_Html.js";
 import { ajaxClassCepage } from "./init.js";
 import { Table } from "./Classe_table_complete.js";
-import { urlCepageOrder } from "./init.js";
+import { urlCepageOrder, urlCepage } from "./init.js";
 import "../node_modules/bootstrap/dist/js/bootstrap.bundle.js";
 
 ("use strict");
@@ -87,6 +87,7 @@ function generationTableau(ajaxClass) {
 function putCepage(ajaxClass) {
   let codeModif = document.getElementById("input0");
   ajaxClass.Cle = codeModif.value;
+  ajaxClass.Url = urlCepage;
   let cepageModif = document.getElementById("input1");
 
   if (cepageModif.value.length == 0) {
@@ -146,6 +147,7 @@ function postCepage(ajaxClass) {
 function delCepage(ajaxClass) {
   let codeSuppr = document.getElementById("codeSuppr-id").textContent;
   ajaxClass.Cle = codeSuppr;
+  ajaxClass.Url = urlCepage;
 
   ajaxClass.del(
     () => {

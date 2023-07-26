@@ -1,0 +1,16 @@
+.carousel-inner {
+    height: 600px;
+}
+
+.carousel-item {
+    height: 600px;
+}
+/* hauteur fixe forcée pour l'affichage desktop */
+
+@media screen and (max-width: 780px){
+    .carousel-item > img {
+        height: 600px;
+        width: 900px !important;
+    }
+/* le width est plus grand que la media querie expres pour eviter la déformation de l'image en format mobile */
+}

@@ -37,16 +37,18 @@ export const urlVinAppellationRegionCouleur = urlVin + '?include=APPELLATION,COU
 export const urlAcepage = url + '/A_POUR_CEPAGE?include=CEPAGE&filter=CODEVIN,eq,';
 export let ajaxClassVinCepage = new Ajax_Es6(urlAcepage);
 
+
 export const urlMetsVin = url + 'METS?include=VIN&transform=1';
 
 export const urlCepage = url + '/CEPAGE';
 export let ajaxClassCepage = new Ajax_Es6(urlCepage);
+export const urlCepageOrder = urlCepage + '?order=NOMCEPAGE,asc';
 
 
 
 export const urlMets = url + '/METS';
 export let ajaxClassMets = new Ajax_Es6(urlMets);
-export let urlMetsCategorieMets = urlMets + '?include=CATEGORIE_METS&transform=1';
+export let urlMetsCategorieMets = urlMets + '?include=CATEGORIE_METS&transform=1&order=NOM,asc';
 
 export const urlCategorieMets = url + '/CATEGORIE_METS';
 export let ajaxClassCategorieMets = new Ajax_Es6(urlCategorieMets);
